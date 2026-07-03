@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Credit Poa — Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #1B2A5E;
+      --navy-deep:   #111C42;
+      --navy-mid:    #243270;
+      --green:       #3A8C2F;
+      --green-light: #4CAF3F;
+      --light-navy:  #E8ECF5;
+      --light-green: #EAF4E8;
+      --dark-gray:   #2D2D2D;
+      --mid-gray:    #555555;
+      --soft-gray:   #8A8FA8;
+      --white:       #FFFFFF;
+      --amber:       #F59E0B;
+      --red:         #DC2626;
+
+      --surface:     #0F1835;
+      --surface-2:   #162044;
+      --surface-3:   #1E2D5A;
+      --border:      rgba(56, 182, 255, 0.12);
+      --border-glow: rgba(58, 140, 47, 0.30);
+      --text-primary: #E8ECF5;
+      --text-secondary: #8A8FA8;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Poppins', Arial, sans-serif;
+      background-color: var(--surface);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Background pattern */
+    body::after{display:none}
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 0%, rgba(58, 140, 47, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 100%, rgba(27, 42, 94, 0.6) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Grid overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(56, 182, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 182, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    /* Logo */
+    .logo-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+
+    .logo-block img {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      margin-bottom: 12px;
+    }
+
+    .logo-block .brand-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: 0.04em;
+    }
+
+    .logo-block .brand-name span {
+      color: var(--green);
+    }
+
+    .logo-block .tagline {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* Card */
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 32px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.40);
+    }
+
+    .card-header {
+      margin-bottom: 28px;
+    }
+
+    .card-header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .card-header p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      background: var(--surface);
+      border-radius: 10px;
+      padding: 4px;
+      margin-bottom: 28px;
+      gap: 4px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 9px 0;
+      border: none;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active {
+      background: var(--navy-mid);
+      color: var(--text-primary);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+
+    /* Form */
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text-primary);
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      -webkit-appearance: none;
+    }
+
+    .form-group input::placeholder {
+      color: var(--soft-gray);
+      opacity: 0.6;
+    }
+
+    .form-group input:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(58, 140, 47, 0.15);
+    }
+
+    /* Password wrapper */
+    .pw-wrap {
+      position: relative;
+    }
+
+    .pw-wrap input {
+      padding-right: 46px;
+    }
+
+    .pw-toggle {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--soft-gray);
+      padding: 4px;
+      display: flex;
+      align-items: center;
+    }
+
+    .pw-toggle:hover { color: var(--text-primary); }
+
+    .pw-toggle svg { width: 18px; height: 18px; }
+
+    /* Forgot password */
+    .forgot-link {
+      display: block;
+      text-align: right;
+      font-size: 12px;
+      color: var(--green);
+      text-decoration: none;
+      margin-top: -10px;
+      margin-bottom: 18px;
+      font-weight: 500;
+    }
+
+    .forgot-link:hover { text-decoration: underline; }
+
+    /* Submit button */
+    .btn-primary {
+      width: 100%;
+      padding: 14px;
+      background: var(--green);
+      border: none;
+      border-radius: 10px;
+      color: var(--white);
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 16px rgba(58, 140, 47, 0.35);
+      letter-spacing: 0.02em;
+    }
+
+    .btn-primary:hover {
+      background: var(--green-light);
+      box-shadow: 0 6px 20px rgba(58, 140, 47, 0.45);
+    }
+
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Spinner inside button */
+    .btn-primary .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Alert messages */
+    .alert {
+      display: none;
+      padding: 12px 14px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .alert.error {
+      background: rgba(220, 38, 38, 0.12);
+      border: 1px solid rgba(220, 38, 38, 0.30);
+      color: #FCA5A5;
+    }
+
+    .alert.success {
+      background: rgba(58, 140, 47, 0.12);
+      border: 1px solid rgba(58, 140, 47, 0.30);
+      color: #86EFAC;
+    }
+
+    .alert.info {
+      background: rgba(245, 158, 11, 0.10);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      color: #FCD34D;
+    }
+
+    .alert.show { display: block; }
+
+    /* Expired notice */
+    .expired-notice {
+      display: none;
+      background: rgba(245, 158, 11, 0.10);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .expired-notice.show { display: block; }
+
+    .expired-notice p {
+      font-size: 13px;
+      color: #FCD34D;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 20px;
+      background: #25D366;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s ease;
+    }
+
+    .btn-whatsapp:hover { background: #1EBD5A; }
+
+    .btn-whatsapp svg { width: 16px; height: 16px; fill: #fff; }
+
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0;
+      color: var(--soft-gray);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Forgot password view */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      margin-bottom: 20px;
+      background: none;
+      border: none;
+      font-family: 'Poppins', Arial, sans-serif;
+      padding: 0;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--text-primary); }
+
+    .back-link svg { width: 15px; height: 15px; }
+
+    /* Views */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* Footer */
+    .page-footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .page-footer a {
+      color: var(--soft-gray);
+      text-decoration: none;
+    }
+
+    .page-footer a:hover { color: var(--text-primary); }
+
+    /* Access badge */
+    .access-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    .access-badge.active-badge {
+      background: rgba(58, 140, 47, 0.15);
+      color: #86EFAC;
+      border: 1px solid rgba(58, 140, 47, 0.25);
+    }
+
+    .access-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- Logo -->
+  <div class="logo-block">
+    <img
+      src="https://res.cloudinary.com/hztm3zo8/image/upload/v1782912986/Black_Beige_Modern_Typography_Monogram_Logo_20260630_092840_0000_er0jyg.png"
+      alt="Credit Poa"
+    />
+    <div class="brand-name">CREDIT <span>POA</span></div>
+    <div class="tagline">Know Where You Stand Financially</div>
+  </div>
+
+  <!-- Card -->
+  <div class="card">
+
+    <!-- LOGIN VIEW -->
+    <div class="view active" id="view-login">
+
+      <div class="access-badge active-badge">
+        <span class="dot"></span>
+        Secure Access
+      </div>
+
+      <div class="card-header">
+        <h1>Welcome back</h1>
+        <p>Sign in to your Credit Poa account</p>
+      </div>
+
+      <!-- Expired notice (shown after expiry redirect) -->
+      <div class="expired-notice" id="expired-notice">
+        <p>Your access has expired. Renew your subscription to continue using your dashboard.</p>
+        <a class="btn-whatsapp" href="https://wa.me/254702682615?text=Hi%2C%20I%20would%20like%20to%20renew%20my%20Credit%20Poa%20access." target="_blank">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.549 4.099 1.516 5.824L.022 24l6.347-1.494A11.942 11.942 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.001-1.369l-.358-.213-3.716.875.944-3.622-.234-.372A9.799 9.799 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+          Renew on WhatsApp
+        </a>
+      </div>
+
+      </div>
+
+      <div id="alert-login" class="alert error"></div>
+
+      <div class="form-group">
+        <label for="login-email">Email Address</label>
+        <input type="email" id="login-email" placeholder="you@example.com" autocomplete="email" />
+      </div>
+
+      <div class="form-group">
+        <label for="login-password">Password</label>
+        <div class="pw-wrap">
+          <input type="password" id="login-password" placeholder="Enter your password" autocomplete="current-password" />
+          <button class="pw-toggle" type="button" onclick="togglePassword('login-password', this)" aria-label="Show password">
+            <svg id="eye-login" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <a class="forgot-link" onclick="showView('view-forgot')">Forgot password?</a>
+
+      <button class="btn-primary" id="btn-login" onclick="handleLogin()">Sign In</button>
+
+      <div class="divider">or</div>
+
+      <div style="text-align:center; font-size:13px; color: var(--text-secondary);">
+        New to Credit Poa?
+        <a href="https://wa.me/254702682615?text=Hi%2C%20I%20would%20like%20to%20get%20started%20with%20Credit%20Poa." target="_blank" style="color: var(--green); font-weight:600; text-decoration:none; margin-left:4px;">Get started on WhatsApp</a>
+      </div>
+
+    </div>
+    <!-- END LOGIN VIEW -->
+
+    <!-- FORGOT PASSWORD VIEW -->
+    <div class="view" id="view-forgot">
+
+      <button class="back-link" onclick="showView('view-login')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M19 12H5M12 5l-7 7 7 7"/>
+        </svg>
+        Back to sign in
+      </button>
+
+      <div class="card-header">
+        <h1>Reset password</h1>
+        <p>We will send a reset link to your email address.</p>
+      </div>
+
+      <div id="alert-forgot" class="alert error"></div>
+
+      <div class="form-group">
+        <label for="forgot-email">Email Address</label>
+        <input type="email" id="forgot-email" placeholder="you@example.com" autocomplete="email" />
+      </div>
+
+      <button class="btn-primary" id="btn-forgot" onclick="handleForgot()">Send Reset Link</button>
+
+    </div>
+    <!-- END FORGOT VIEW -->
+
+  </div>
+  <!-- END CARD -->
+
+<div class="page-footer">
+  &copy; 2026 Credit Poa. All rights reserved.<br/>
+  <a href="index.html#terms">Terms &amp; Conditions</a> &nbsp;&middot;&nbsp; <a href="index.html#privacy">Privacy Policy</a>
+</div>
+  </div>
+
+</div>
+
+<!-- Firebase -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import {
+    getAuth,
+    signInWithEmailAndPassword,
+    sendPasswordResetEmail
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,
+    getDoc
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDPxifG1597SjirD1T1lncLIYXmyuesbzw",
+    authDomain: "credit-poa.firebaseapp.com",
+    projectId: "credit-poa",
+    storageBucket: "credit-poa.firebasestorage.app",
+    messagingSenderId: "210625667819",
+    appId: "1:210625667819:web:8667a4b2d735fa299bd4ae"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const ADMIN_EMAIL = "creditpoa@gmail.com";
+
+  // Expose functions to window for onclick handlers
+
+  window.showView = (viewId) => {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById(viewId).classList.add('active');
+    clearAlert('alert-login');
+    clearAlert('alert-forgot');
+  };
+
+  window.togglePassword = (inputId, btn) => {
+    const input = document.getElementById(inputId);
+    const isText = input.type === 'text';
+    input.type = isText ? 'password' : 'text';
+    btn.querySelector('svg').innerHTML = isText
+      ? '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>'
+      : '<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+  };
+
+  function showAlert(id, message, type = 'error') {
+    const el = document.getElementById(id);
+    el.textContent = message;
+    el.className = `alert ${type} show`;
+  }
+
+  function clearAlert(id) {
+    const el = document.getElementById(id);
+    el.className = 'alert error';
+    el.textContent = '';
+  }
+
+  function setLoading(btnId, loading, defaultText) {
+    const btn = document.getElementById(btnId);
+    btn.disabled = loading;
+    btn.innerHTML = loading
+      ? '<span class="spinner"></span> Please wait...'
+      : defaultText;
+  }
+
+  // Check if redirected after expiry
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('expired') === '1') {
+    document.getElementById('expired-notice').classList.add('show');
+  }
+
+  window.handleLogin = async () => {
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+
+    clearAlert('alert-login');
+
+    if (!email || !password) {
+      showAlert('alert-login', 'Please enter your email address and password.');
+      return;
+    }
+
+    setLoading('btn-login', true, 'Sign In');
+
+    try {
+      const cred = await signInWithEmailAndPassword(auth, email, password);
+      const user = cred.user;
+
+      // Admin check
+      if (email === ADMIN_EMAIL) {
+        window.location.href = 'admin.html';
+        return;
+      }
+
+      // User check: confirm account exists and is active in Firestore
+      const userRef = doc(db, 'users', user.uid);
+      const userSnap = await getDoc(userRef);
+
+      if (!userSnap.exists()) {
+        showAlert('alert-login', 'Account not found. Please contact support via WhatsApp.');
+        await auth.signOut();
+        setLoading('btn-login', false, 'Sign In');
+        return;
+      }
+
+      const userData = userSnap.data();
+
+      if (userData.status === 'pending') {
+        showAlert('alert-login', 'Your account is pending activation. You will be notified via WhatsApp once it is active.', 'info');
+        await auth.signOut();
+        setLoading('btn-login', false, 'Sign In');
+        return;
+      }
+
+      if (userData.status === 'expired') {
+        showAlert('alert-login', 'Your access has expired. Please renew your subscription via WhatsApp.', 'info');
+        document.getElementById('expired-notice').classList.add('show');
+        await auth.signOut();
+        setLoading('btn-login', false, 'Sign In');
+        return;
+      }
+
+      if (userData.status === 'inactive') {
+        showAlert('alert-login', 'Your account has been deactivated. Please contact support via WhatsApp.');
+        await auth.signOut();
+        setLoading('btn-login', false, 'Sign In');
+        return;
+      }
+
+      // All good, go to dashboard
+      window.location.href = 'dashboard.html';
+
+    } catch (err) {
+      setLoading('btn-login', false, 'Sign In');
+      const msg = parseFirebaseError(err.code);
+      showAlert('alert-login', msg);
+    }
+  };
+
+  window.handleForgot = async () => {
+    const email = document.getElementById('forgot-email').value.trim();
+    clearAlert('alert-forgot');
+
+    if (!email) {
+      showAlert('alert-forgot', 'Please enter your email address.');
+      return;
+    }
+
+    setLoading('btn-forgot', true, 'Send Reset Link');
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+      showAlert('alert-forgot', 'Reset link sent. Check your email inbox.', 'success');
+    } catch (err) {
+      showAlert('alert-forgot', parseFirebaseError(err.code));
+    } finally {
+      setLoading('btn-forgot', false, 'Send Reset Link');
+    }
+  };
+
+  function parseFirebaseError(code) {
+    const map = {
+      'auth/user-not-found':      'No account found with that email address.',
+      'auth/wrong-password':      'Incorrect password. Please try again.',
+      'auth/invalid-email':       'Please enter a valid email address.',
+      'auth/too-many-requests':   'Too many attempts. Please wait a few minutes and try again.',
+      'auth/network-request-failed': 'Connection error. Check your internet and try again.',
+      'auth/invalid-credential':  'Incorrect email or password. Please try again.',
+      'auth/user-disabled':       'This account has been disabled. Contact support via WhatsApp.',
+    };
+    return map[code] || 'Something went wrong. Please try again.';
+  }
+
+  // Allow Enter key to submit
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    const loginView = document.getElementById('view-login');
+    const forgotView = document.getElementById('view-forgot');
+    if (loginView.classList.contains('active')) window.handleLogin();
+    if (forgotView.classList.contains('active')) window.handleForgot();
+  });
+</script>
+
+</body>
+</html>
