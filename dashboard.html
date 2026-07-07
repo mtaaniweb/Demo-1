@@ -1,0 +1,3025 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Credit Poa — Dashboard</title>
+  <link rel="stylesheet" href="system.css" />
+</head>
+<body>
+
+<!-- Sidebar overlay (mobile) -->
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<div class="app-shell">
+
+  <!-- ========================================================
+       SIDEBAR
+  ======================================================== -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+      <img src="https://res.cloudinary.com/hztm3zo8/image/upload/v1782912986/Black_Beige_Modern_Typography_Monogram_Logo_20260630_092840_0000_er0jyg.png" alt="Credit Poa" />
+      <div class="sidebar-logo-text">
+        <div class="brand">CREDIT <span>POA</span></div>
+        <div class="version">Financial Wellness</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <div class="nav-section-label">Main</div>
+
+      <button class="nav-item active" onclick="showSection('overview')" id="nav-overview">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+          <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+        </svg>
+        Overview
+      </button>
+
+      <button class="nav-item" onclick="showSection('loan-tracker')" id="nav-loan-tracker">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
+          <rect x="9" y="3" width="6" height="4" rx="1"/>
+          <path d="M9 12h6M9 16h4"/>
+        </svg>
+        Loan Tracker
+      </button>
+
+      <button class="nav-item" onclick="showSection('limit-history')" id="nav-limit-history">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+        Limit History
+      </button>
+
+      <button class="nav-item" onclick="showSection('calendar')" id="nav-calendar">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+        </svg>
+        Repayment Calendar
+      </button>
+
+      <div class="nav-section-label">My Profile</div>
+
+      <button class="nav-item" onclick="showSection('wellness')" id="nav-wellness">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        </svg>
+        Wellness Score
+      </button>
+
+     <button class="nav-item" onclick="showSection('loan-cost')" id="nav-loan-cost">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+        </svg>
+        Loan Cost Tracker
+      </button>
+
+      <button class="nav-item" onclick="showSection('repayment-plan')" id="nav-repayment-plan">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+        </svg>
+        Repayment Plan
+      </button>
+
+      <button class="nav-item" onclick="showSection('reports')" id="nav-reports">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+        </svg>
+        Reports
+      </button>
+
+      <button class="nav-item" onclick="showSection('notifications')" id="nav-notifications">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 01-3.46 0"/>
+        </svg>
+        Notifications
+        <span class="badge" id="nav-notif-badge" style="display:none">0</span>
+      </button>
+
+      <div class="nav-section-label">Account</div>
+
+      <button class="nav-item" onclick="showSection('profile')" id="nav-profile">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        Profile Settings
+      </button>
+
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="nav-item" onclick="handleLogout()" style="color: var(--red-text);">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+          <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Sign Out
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- ========================================================
+       MAIN AREA
+  ======================================================== -->
+  <div class="main-area">
+
+    <!-- HEADER -->
+    <header class="app-header">
+      <div class="header-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <span class="header-page-title" id="header-title">Overview</span>
+      </div>
+      <div class="header-right">
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+          <svg id="theme-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+        <button class="notif-btn" onclick="showSection('notifications')" title="Notifications">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 01-3.46 0"/>
+          </svg>
+          <span class="notif-dot" id="notif-dot"></span>
+        </button>
+        <div id="header-avatar-wrap"></div>
+      </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <main class="page-content">
+
+      <!-- ====================================================
+           SECTION: OVERVIEW
+      ==================================================== -->
+      <section class="section active" id="section-overview">
+
+        <div id="alert-overview" class="alert alert-error"></div>
+
+        <div class="page-header">
+          <h1 id="overview-greeting">Good morning</h1>
+          <p>Here is your financial snapshot for today.</p>
+        </div>
+
+        <!-- Wellness score hero -->
+        <div class="card mb-5">
+          <div class="card-body" style="text-align:center; padding: 32px 24px;">
+            <div class="stat-label mb-2">Financial Wellness Score</div>
+            <div class="score-number green" id="overview-score">--</div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">out of 100</div>
+            <div class="score-bar-wrap" style="max-width:280px; margin:20px auto 8px;">
+              <div class="score-bar" id="overview-score-bar" style="width:0%"></div>
+            </div>
+            <div style="font-size:12px; color:var(--text-secondary);" id="overview-score-label">Update your loan tracker to calculate your score.</div>
+          </div>
+        </div>
+
+        <!-- Stats grid -->
+        <div class="stats-grid mb-5">
+
+          <div class="stat-card">
+            <div class="stat-icon blue">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
+                <rect x="9" y="3" width="6" height="4" rx="1"/>
+              </svg>
+            </div>
+            <div class="stat-label">Active Loans</div>
+            <div class="stat-value" id="stat-active-loans">0</div>
+            <div class="stat-sub">across all apps</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon red">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+              </svg>
+            </div>
+            <div class="stat-label">Total Owed</div>
+            <div class="stat-value red" id="stat-total-owed">KES 0</div>
+            <div class="stat-sub">estimated balance</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon amber">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+              </svg>
+            </div>
+            <div class="stat-label">Next Due Date</div>
+            <div class="stat-value" id="stat-next-due" style="font-size:20px;">None</div>
+            <div class="stat-sub" id="stat-next-due-app"></div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon green">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div class="stat-label">Access Expires</div>
+            <div class="stat-value" id="stat-expiry" style="font-size:20px;">--</div>
+            <div class="stat-sub" id="stat-expiry-sub"></div>
+          </div>
+
+        </div>
+
+<!-- Badges -->
+        <div id="badge-strip" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;"></div>
+
+     <!-- Progress tracker -->
+        <div class="stats-grid mb-5" id="progress-tracker-card">
+          <div class="stat-card">
+            <div>
+              <div class="stat-label">Your Progress</div>
+              <div class="stat-sub">Tracked automatically from your logged activity</div>
+            </div>
+            <div id="progress-status-badge"></div>
+          </div>
+          <div class="stat-card" id="progress-tracker-body">
+            <p style="font-size:13px;color:var(--text-muted);">Log your loans and generate at least one report to start tracking your progress.</p>
+          </div>
+        </div>
+
+<!-- Behaviour Insights -->
+        <div class="card mb-5">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Repayment Behaviour Insights</div>
+              <div class="card-subtitle">Patterns detected from your logged loans</div>
+            </div>
+          </div>
+          <div class="card-body" id="behaviour-insights">
+            <p style="font-size:13px;color:var(--text-muted);">Log your loans to see your behaviour insights.</p>
+          </div>
+        </div>
+
+        <!-- Lender Perception -->
+        <div class="card mb-5">
+          <div class="card-header">
+            <div>
+              <div class="card-title">What Lenders Might Think</div>
+              <div class="card-subtitle">How your profile may appear to mobile lenders</div>
+            </div>
+          </div>
+          <div class="card-body" id="lender-perception">
+            <p style="font-size:13px;color:var(--text-muted);">Complete your intake form and log your loans to see lender perception.</p>
+          </div>
+        </div>
+
+        <!-- Quick actions -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Quick Actions</div>
+              <div class="card-subtitle">Jump to what matters most</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="grid-2" style="gap:12px;">
+              <button class="btn btn-secondary btn-full" onclick="showSection('loan-tracker')">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:15px;height:15px;">
+                  <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
+                </svg>
+                Add a Loan
+              </button>
+              <button class="btn btn-secondary btn-full" onclick="showSection('reports')">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:15px;height:15px;">
+                  <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/>
+                </svg>
+                Generate Report
+              </button>
+              <button class="btn btn-secondary btn-full" onclick="showSection('wellness')">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:15px;height:15px;">
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                </svg>
+                View Wellness Score
+              </button>
+              <button class="btn btn-secondary btn-full" onclick="showSection('calendar')">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:15px;height:15px;">
+                  <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+                </svg>
+                View Calendar
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================
+           SECTION: LOAN TRACKER
+      ==================================================== -->
+      <section class="section" id="section-loan-tracker">
+
+        <div class="page-header">
+          <h1>Loan Tracker</h1>
+          <p>Log and manage all your active mobile loans in one place.</p>
+        </div>
+
+        <div id="alert-loan" class="alert alert-error"></div>
+
+        <div class="flex-between mb-5">
+          <div></div>
+          <button class="btn btn-primary" onclick="openLoanModal()">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/>
+              <line x1="8" y1="12" x2="16" y2="12"/>
+            </svg>
+            Add Loan
+          </button>
+        </div>
+
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>App</th>
+                  <th>Amount (KES)</th>
+                  <th>Date Taken</th>
+                  <th>Due Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="loans-table-body">
+                <tr>
+                  <td colspan="6">
+                    <div class="empty-state">
+                      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
+                        <rect x="9" y="3" width="6" height="4" rx="1"/>
+                      </svg>
+                      <h3>No loans logged yet</h3>
+                      <p>Add your first loan entry to start tracking your repayments and calculating your wellness score.</p>
+                      <button class="btn btn-primary" onclick="openLoanModal()">Add Your First Loan</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================
+           SECTION: LIMIT HISTORY
+      ==================================================== -->
+      <section class="section" id="section-limit-history">
+
+        <div class="page-header">
+          <h1>Limit History</h1>
+          <p>Track how your loan limits grow over time across all your apps.</p>
+        </div>
+
+        <div id="alert-limit" class="alert alert-error"></div>
+
+        <div class="flex-between mb-5">
+          <div></div>
+          <button class="btn btn-primary" onclick="openLimitModal()">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/>
+              <line x1="8" y1="12" x2="16" y2="12"/>
+            </svg>
+            Log Limit
+          </button>
+        </div>
+
+        <!-- Chart area -->
+        <div class="card mb-5">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Limit Growth</div>
+              <div class="card-subtitle">Your highest logged limit per app over time</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div id="limit-chart-area">
+              <div class="empty-state" style="padding:32px 0;">
+                <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                </svg>
+                <h3>No limit data yet</h3>
+                <p>Log your first limit entry to start tracking your growth.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Limit table -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">All Limit Entries</div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>App</th>
+                  <th>Limit (KES)</th>
+                  <th>Date Logged</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="limits-table-body">
+                <tr>
+                  <td colspan="4">
+                    <div class="empty-state">
+                      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                      </svg>
+                      <h3>No entries yet</h3>
+                      <p>Start logging your limits to see how they grow.</p>
+                      <button class="btn btn-primary" onclick="openLimitModal()">Log First Limit</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================
+           SECTION: REPAYMENT CALENDAR
+      ==================================================== -->
+      <section class="section" id="section-calendar">
+
+        <div class="page-header">
+          <h1>Repayment Calendar</h1>
+          <p>See all your loan due dates at a glance.</p>
+        </div>
+
+        <div class="grid-2" style="align-items:start; gap:20px;">
+
+          <div class="calendar-wrap">
+            <div class="calendar-header">
+              <button class="calendar-nav" onclick="changeMonth(-1)">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <polyline points="15 18 9 12 15 6"/>
+                </svg>
+              </button>
+              <div class="calendar-month" id="calendar-month-label"></div>
+              <button class="calendar-nav" onclick="changeMonth(1)">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <polyline points="9 18 15 12 9 6"/>
+                </svg>
+              </button>
+            </div>
+            <div class="calendar-grid">
+              <div class="calendar-days-header">
+                <div class="calendar-day-name">Sun</div>
+                <div class="calendar-day-name">Mon</div>
+                <div class="calendar-day-name">Tue</div>
+                <div class="calendar-day-name">Wed</div>
+                <div class="calendar-day-name">Thu</div>
+                <div class="calendar-day-name">Fri</div>
+                <div class="calendar-day-name">Sat</div>
+              </div>
+              <div class="calendar-cells" id="calendar-cells"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="card mb-4">
+              <div class="card-header">
+                <div class="card-title">Legend</div>
+              </div>
+              <div class="card-body" style="display:flex; flex-direction:column; gap:12px;">
+                <div class="flex gap-3" style="align-items:center; font-size:13px; color:var(--text-secondary);">
+                  <span style="width:12px;height:12px;border-radius:50%;background:var(--blue);flex-shrink:0;"></span>
+                  Upcoming due date
+                </div>
+                <div class="flex gap-3" style="align-items:center; font-size:13px; color:var(--text-secondary);">
+                  <span style="width:12px;height:12px;border-radius:50%;background:var(--amber);flex-shrink:0;"></span>
+                  Due today
+                </div>
+                <div class="flex gap-3" style="align-items:center; font-size:13px; color:var(--text-secondary);">
+                  <span style="width:12px;height:12px;border-radius:50%;background:var(--red);flex-shrink:0;"></span>
+                  Overdue
+                </div>
+              </div>
+            </div>
+
+            <div class="calendar-detail" id="calendar-detail">
+              <div id="calendar-detail-content"></div>
+            </div>
+
+            <div class="card" id="upcoming-dues-card">
+              <div class="card-header">
+                <div class="card-title">Upcoming This Month</div>
+              </div>
+              <div class="card-body" id="upcoming-dues-list">
+                <p style="font-size:13px; color:var(--text-muted);">No upcoming due dates this month.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ====================================================
+           SECTION: WELLNESS SCORE
+      ==================================================== -->
+      <section class="section" id="section-wellness">
+
+        <div class="page-header">
+          <h1>Financial Wellness Score</h1>
+          <p>A breakdown of your score and how to improve each dimension.</p>
+        </div>
+
+        <div class="grid-2" style="align-items:start; gap:20px;">
+
+          <div class="card">
+            <div class="card-body">
+              <div class="score-ring-wrap">
+                <div class="score-number green" id="wellness-score-number">--</div>
+                <div class="score-label">out of 100</div>
+                <div class="score-bar-wrap" style="width:100%; margin:20px 0 8px;">
+                  <div class="score-bar" id="wellness-score-bar" style="width:0%"></div>
+                </div>
+                <div style="font-size:13px; color:var(--text-secondary); text-align:center;" id="wellness-score-verdict">Add your loans to calculate your score.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Score Breakdown</div>
+            </div>
+            <div class="card-body">
+              <div class="score-dimensions" id="score-dimensions">
+                <div class="score-dim">
+                  <div class="score-dim-label">Repayment Consistency</div>
+                  <div class="score-dim-bar-wrap"><div class="score-dim-bar" id="dim-repayment" style="width:0%"></div></div>
+                  <div class="score-dim-val" id="dim-repayment-val">0</div>
+                </div>
+                <div class="score-dim">
+                  <div class="score-dim-label">Borrowing Volume</div>
+                  <div class="score-dim-bar-wrap"><div class="score-dim-bar" id="dim-volume" style="width:0%"></div></div>
+                  <div class="score-dim-val" id="dim-volume-val">0</div>
+                </div>
+                <div class="score-dim">
+                  <div class="score-dim-label">Balance Management</div>
+                  <div class="score-dim-bar-wrap"><div class="score-dim-bar" id="dim-balance" style="width:0%"></div></div>
+                  <div class="score-dim-val" id="dim-balance-val">0</div>
+                </div>
+                <div class="score-dim">
+                  <div class="score-dim-label">CRB Safety</div>
+                  <div class="score-dim-bar-wrap"><div class="score-dim-bar" id="dim-crb" style="width:0%"></div></div>
+                  <div class="score-dim-val" id="dim-crb-val">0</div>
+                </div>
+                <div class="score-dim">
+                  <div class="score-dim-label">Limit Growth Potential</div>
+                  <div class="score-dim-bar-wrap"><div class="score-dim-bar" id="dim-growth" style="width:0%"></div></div>
+                  <div class="score-dim-val" id="dim-growth-val">0</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Tips -->
+        <div class="card mt-4">
+          <div class="card-header">
+            <div class="card-title">Improvement Tips</div>
+            <div class="card-subtitle">Actions you can take right now</div>
+          </div>
+          <div class="card-body" id="wellness-tips">
+            <p style="font-size:13px; color:var(--text-muted);">Your tips will appear here once your score is calculated.</p>
+          </div>
+        </div>
+
+      </section>
+
+<!-- ====================================================
+           SECTION: LOAN COST TRACKER
+      ==================================================== -->
+      <section class="section" id="section-loan-cost">
+
+        <div class="page-header">
+          <h1>Loan Cost Tracker</h1>
+          <p>See what your loans are actually costing you and whether they are working for you.</p>
+        </div>
+
+        <div id="alert-loan-cost" class="alert alert-error"></div>
+
+        <!-- Summary cards -->
+        <div class="stats-grid swipe-cards mb-5">
+          <div class="stat-card">
+            <div class="stat-label">Total Borrowed</div>
+            <div class="stat-value" id="lc-total-borrowed">KES 0</div>
+            <div class="stat-sub">across all logged costs</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Total Interest Paid</div>
+            <div class="stat-value red" id="lc-total-interest">KES 0</div>
+            <div class="stat-sub">real cost of borrowing</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Productive Loans</div>
+            <div class="stat-value green" id="lc-productive">0</div>
+            <div class="stat-sub">loans that helped you</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Unproductive Loans</div>
+            <div class="stat-value amber" id="lc-unproductive">0</div>
+            <div class="stat-sub">loans that did not help</div>
+          </div>
+        </div>
+
+        <div class="flex-between mb-5">
+          <div></div>
+          <button class="btn btn-primary" onclick="openLoanCostModal()">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/>
+              <line x1="8" y1="12" x2="16" y2="12"/>
+            </svg>
+            Log Loan Cost
+          </button>
+        </div>
+
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>App</th>
+                  <th>Amount (KES)</th>
+                  <th>Interest Paid (KES)</th>
+                  <th>Purpose</th>
+                  <th>Did It Help?</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="loan-cost-tbody">
+                <tr><td colspan="7">
+                  <div class="empty-state">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                      <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                    </svg>
+                    <h3>No cost entries yet</h3>
+                    <p>Start logging what your loans cost you and whether they helped.</p>
+                    <button class="btn btn-primary" onclick="openLoanCostModal()">Log Your First Entry</button>
+                  </div>
+                </td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================
+           SECTION: REPAYMENT PLAN
+      ==================================================== -->
+      <section class="section" id="section-repayment-plan">
+
+        <div class="page-header">
+          <h1>Repayment Plan</h1>
+          <p>Your personalised plan based on your active loans and financial goals.</p>
+        </div>
+
+        <!-- Auto generated plan -->
+        <div class="card mb-5">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Your Plan</div>
+              <div class="card-subtitle">Generated automatically from your loan tracker and goals</div>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="generateRepaymentPlan()">Refresh Plan</button>
+          </div>
+          <div class="card-body" id="repayment-plan-body">
+            <p style="font-size:13px;color:var(--text-muted);">Add your loans and set a goal below to generate your personalised repayment plan.</p>
+          </div>
+        </div>
+
+        <!-- Goals -->
+        <div class="card-header" style="margin-bottom:16px;">
+          <div>
+            <div class="card-title" style="font-size:14px;font-weight:600;color:var(--text-primary);">Your Goals</div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="openGoalModal()">Add Goal</button>
+        </div>
+
+        <div id="alert-goal" class="alert alert-error"></div>
+
+        <div class="grid-auto" id="goals-grid">
+          <div class="empty-state" style="grid-column:1/-1;">
+            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+            </svg>
+            <h3>No goals yet</h3>
+            <p>Add a goal such as clearing a specific loan or reducing your active apps.</p>
+            <button class="btn btn-primary" onclick="openGoalModal()">Set Your First Goal</button>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================
+           SECTION: REPORTS
+      ==================================================== -->
+      <section class="section" id="section-reports">
+
+        <div class="page-header">
+          <h1>Reports</h1>
+          <p>Generate and download your personalised loan profile report at any time.</p>
+        </div>
+
+        <div id="alert-report" class="alert alert-error"></div>
+
+        <div class="grid-2" style="align-items:start; gap:20px;">
+
+          <!-- Intake form -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Your Intake Form</div>
+                <div class="card-subtitle">Update your information and regenerate your report anytime.</div>
+              </div>
+            </div>
+            <div class="card-body">
+
+              <div style="font-size:12px; font-weight:600; color:var(--green); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:16px;">Section 1: Personal Details</div>
+
+              <div class="form-group">
+                <label class="form-label">Full Name <span class="required">*</span></label>
+                <input class="form-input" id="f-name" type="text" placeholder="e.g. John Kamau" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone Number <span class="required">*</span></label>
+                <input class="form-input" id="f-phone" type="tel" placeholder="e.g. 0712 345 678" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input class="form-input" id="f-email" type="email" placeholder="Optional" />
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Date of Application</label>
+                <input class="form-input" id="f-date" type="date" />
+              </div>
+
+              <div class="divider"></div>
+              <div style="font-size:12px; font-weight:600; color:var(--green); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:16px;">Section 2: Loan App Usage</div>
+
+              <div class="form-group">
+                <label class="form-label">Which loan apps do you use? <span class="required">*</span></label>
+                <div class="checkbox-grid" id="loan-apps-grid"></div>
+              </div>
+              <div class="form-group" id="other-app-group" style="display:none;">
+                <label class="form-label">Please specify the app name</label>
+                <input class="form-input" id="f-other-apps" type="text" placeholder="Type the app name here..." />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Do you have active loans right now? <span class="required">*</span></label>
+                <select class="form-select" id="f-active-loans">
+                  <option value="">Select...</option>
+                  <option value="Yes, one app">Yes, one app</option>
+                  <option value="Yes, multiple apps">Yes, multiple apps</option>
+                  <option value="No, all cleared">No, all cleared</option>
+                  <option value="Not sure">Not sure</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Total outstanding balance (KES) <span class="required">*</span></label>
+                <select class="form-select" id="f-balance">
+                  <option value="">Select...</option>
+                  <option value="0-500">0 to 500</option>
+                  <option value="501-2,000">501 to 2,000</option>
+                  <option value="2,001-10,000">2,001 to 10,000</option>
+                  <option value="10,001-50,000">10,001 to 50,000</option>
+                  <option value="50,000+">50,000 and above</option>
+                </select>
+              </div>
+
+              <div class="divider"></div>
+              <div style="font-size:12px; font-weight:600; color:var(--green); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:16px;">Section 3: Repayment Behaviour</div>
+
+              <div class="form-group">
+                <label class="form-label">Repayment pattern <span class="required">*</span></label>
+                <select class="form-select" id="f-repayment">
+                  <option value="">Select...</option>
+                  <option value="Always on time">Always on time</option>
+                  <option value="Mostly on time, occasionally late">Mostly on time, occasionally late</option>
+                  <option value="Often late">Often late</option>
+                  <option value="Have defaulted on a loan before">Have defaulted on a loan before</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">CRB listing status <span class="required">*</span></label>
+                <select class="form-select" id="f-crb">
+                  <option value="">Select...</option>
+                  <option value="Prefer not to say">Prefer not to say</option>
+                  <option value="No, I have not">No, I have not been listed</option>
+                  <option value="Yes, but cleared">Yes, but cleared</option>
+                  <option value="Yes, currently listed">Yes, currently listed</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Have you been contacted by a loan recovery agent? <span class="required">*</span></label>
+                <select class="form-select" id="f-recovery">
+                  <option value="">Select...</option>
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+              </div>
+
+              <div class="divider"></div>
+              <div style="font-size:12px; font-weight:600; color:var(--green); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:16px;">Section 4: Financial Goals</div>
+
+              <div class="form-group">
+                <label class="form-label">Why are you requesting this review? <span class="required">*</span></label>
+                <select class="form-select" id="f-reason">
+                  <option value="">Select...</option>
+                  <option value="Personal finance awareness">Personal finance awareness</option>
+                  <option value="Preparing to apply for a loan">Preparing to apply for a loan</option>
+                  <option value="Checking my borrowing habits">Checking my borrowing habits</option>
+                  <option value="Was referred by someone">Was referred by someone</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Main financial goal <span class="required">*</span></label>
+                <select class="form-select" id="f-goal">
+                  <option value="">Select...</option>
+                  <option value="Clear existing debts">Clear existing debts</option>
+                  <option value="Increase my loan limits">Increase my loan limits</option>
+                  <option value="Qualify for a bank loan">Qualify for a bank loan</option>
+                  <option value="Build better borrowing habits">Build better borrowing habits</option>
+                  <option value="Start or grow a business">Start or grow a business</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Employment Status <span class="required">*</span></label>
+                <select class="form-select" id="f-employment">
+                  <option value="">Select...</option>
+                  <option value="Employed (formal)">Employed (formal)</option>
+                  <option value="Self-employed / Business owner">Self-employed / Business owner</option>
+                  <option value="Casual / Informal work">Casual / Informal work</option>
+                  <option value="Student">Student</option>
+                  <option value="Unemployed">Unemployed</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Primary Income Source</label>
+                <input class="form-input" id="f-income-source" type="text" placeholder="e.g. Salary, M-Pesa business, Bodaboda, MPESA agent" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Monthly income or earnings (KES)</label>
+                <input class="form-input" id="f-income" type="text" placeholder="Approximate figure" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Monthly loan repayment obligations (KES)</label>
+                <input class="form-input" id="f-obligations" type="text" placeholder="Total you repay on loans every month" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Primary borrowing purpose <span class="required">*</span></label>
+                <select class="form-select" id="f-borrow-purpose">
+                  <option value="">Select...</option>
+                  <option value="Business / Stock">Business or stock</option>
+                  <option value="Rent / Bills">Rent or bills</option>
+                  <option value="Emergency">Emergency</option>
+                  <option value="School fees">School fees</option>
+                  <option value="Food / Household">Food or household</option>
+                  <option value="Bridging / Waiting for income">Bridging while waiting for income</option>
+                  <option value="Investment">Investment</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">How often do you borrow per month?</label>
+                <select class="form-select" id="f-borrow-frequency">
+                  <option value="">Select...</option>
+                  <option value="Once">Once</option>
+                  <option value="2 to 3 times">2 to 3 times</option>
+                  <option value="4 or more times">4 or more times</option>
+                  <option value="Only when I have to">Only when I have to</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">How did you hear about us? <span class="required">*</span></label>
+                <select class="form-select" id="f-source">
+                  <option value="">Select...</option>
+                  <option value="WhatsApp">WhatsApp</option>
+                  <option value="Facebook">Facebook</option>
+                  <option value="Referred by a friend">Referred by a friend</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Specific concerns or questions</label>
+                <textarea class="form-textarea" id="f-concerns" placeholder="Share anything you would like us to consider..."></textarea>
+              </div>
+
+              <div class="divider"></div>
+              <div style="font-size:12px; font-weight:600; color:var(--green); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:16px;">Section 5: Confirmation and Consent</div>
+
+              <div class="form-group">
+                <label class="checkbox-group">
+                  <input type="checkbox" id="f-consent-1" />
+                  <span class="check-label">The information I have provided is accurate to the best of my knowledge.</span>
+                </label>
+              </div>
+              <div class="form-group">
+                <label class="checkbox-group">
+                  <input type="checkbox" id="f-consent-2" />
+                  <span class="check-label">I understand this is not an official CRB report or financial clearance certificate.</span>
+                </label>
+              </div>
+              <div class="form-group">
+                <label class="checkbox-group">
+                  <input type="checkbox" id="f-consent-3" />
+                  <span class="check-label">My information will be used solely for the purpose of generating my personal report.</span>
+                </label>
+              </div>
+
+              <div class="flex gap-3 mt-4">
+                <button class="btn btn-secondary" onclick="saveIntakeForm()" id="btn-save-form">Save Form</button>
+                <button class="btn btn-primary" onclick="generateReport()" id="btn-generate">
+                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:15px;height:15px;">
+                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                  </svg>
+                  Generate Report
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Report history -->
+          <div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Report History</div>
+                <div class="card-subtitle">All reports generated on this account</div>
+              </div>
+              <div class="card-body" id="report-history">
+                <div class="empty-state" style="padding:24px 0;">
+                  <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                  </svg>
+                  <h3>No reports yet</h3>
+                  <p>Your first generated report will appear here.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ====================================================
+           SECTION: NOTIFICATIONS
+      ==================================================== -->
+      <section class="section" id="section-notifications">
+
+        <div class="page-header">
+          <h1>Notifications</h1>
+          <p>All your alerts and updates in one place.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">All Notifications</div>
+            <button class="btn btn-ghost btn-sm" onclick="markAllRead()">Mark all as read</button>
+          </div>
+          <div class="card-body" id="notif-full-list">
+            <div class="empty-state">
+              <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                <path d="M13.73 21a2 2 0 01-3.46 0"/>
+              </svg>
+              <h3>No notifications</h3>
+              <p>You are all caught up. Notifications about your loans and account will appear here.</p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================
+           SECTION: PROFILE SETTINGS
+      ==================================================== -->
+      <section class="section" id="section-profile">
+
+        <div class="page-header">
+          <h1>Profile Settings</h1>
+          <p>Manage your account information and preferences.</p>
+        </div>
+
+        <div id="alert-profile" class="alert alert-error"></div>
+
+        <div class="grid-2" style="align-items:start; gap:20px;">
+
+          <!-- Profile photo and basic info -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Profile Photo</div>
+            </div>
+            <div class="card-body">
+              <div class="avatar-upload-wrap">
+                <div id="profile-avatar-display"></div>
+                <input type="file" id="avatar-file-input" accept="image/*" style="display:none;" onchange="uploadAvatar(this)" />
+                <button class="btn btn-secondary btn-sm" onclick="document.getElementById('avatar-file-input').click()">
+                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:14px;height:14px;">
+                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+                  </svg>
+                  Change Photo
+                </button>
+                <div class="avatar-upload-hint">Select a photo from your gallery.<br/>JPG or PNG. Max 5MB.</div>
+                <div id="avatar-upload-status" style="font-size:12px; color:var(--green); display:none;">Uploading...</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Account info -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Account Information</div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input class="form-input" id="p-name" type="text" placeholder="Your full name" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input class="form-input" id="p-phone" type="tel" placeholder="e.g. 0712 345 678" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input class="form-input" id="p-email" type="email" disabled style="opacity:0.5;" />
+              </div>
+              <button class="btn btn-primary btn-full" onclick="saveProfile()" id="btn-save-profile">Save Changes</button>
+            </div>
+          </div>
+
+          <!-- Change password -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Change Password</div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">New Password</label>
+                <input class="form-input" id="p-new-pw" type="password" placeholder="Min 6 characters" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Confirm New Password</label>
+                <input class="form-input" id="p-confirm-pw" type="password" placeholder="Repeat new password" />
+              </div>
+              <button class="btn btn-secondary btn-full" onclick="changePassword()">Update Password</button>
+            </div>
+          </div>
+
+          <!-- Danger zone -->
+          <div class="card" style="border-color: rgba(220,38,38,0.25);">
+            <div class="card-header">
+              <div class="card-title" style="color:var(--red-text);">Danger Zone</div>
+            </div>
+            <div class="card-body">
+              <p style="font-size:13px; color:var(--text-secondary); margin-bottom:16px; line-height:1.6;">
+                Deleting your account is permanent. All your data, loans, limits, goals, and reports will be removed immediately. This action cannot be undone.
+              </p>
+              <button class="btn btn-danger btn-full" onclick="openDeleteModal()">Delete My Account</button>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: LOG LOAN COST
+============================================================ -->
+<div class="modal-overlay" id="modal-loan-cost">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Log Loan Cost</div>
+      <button class="modal-close" onclick="closeModal('modal-loan-cost')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">App Name <span class="required">*</span></label>
+        <select class="form-select" id="lc-app"></select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Amount Borrowed (KES) <span class="required">*</span></label>
+          <input class="form-input" id="lc-amount" type="number" placeholder="e.g. 3000" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Interest Paid (KES) <span class="required">*</span></label>
+          <input class="form-input" id="lc-interest" type="number" placeholder="e.g. 450" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">What was the loan used for? <span class="required">*</span></label>
+        <input class="form-input" id="lc-purpose" type="text" placeholder="e.g. Paid rent, bought stock, emergency" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Did this loan help you? <span class="required">*</span></label>
+        <select class="form-select" id="lc-helped">
+          <option value="">Select...</option>
+          <option value="Yes">Yes, it helped</option>
+          <option value="Partially">Partially helped</option>
+          <option value="No">No, it did not help</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Date</label>
+        <input class="form-input" id="lc-date" type="date" />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-loan-cost')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveLoanCost()">Save Entry</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: ADD / EDIT LOAN
+============================================================ -->
+<div class="modal-overlay" id="modal-loan">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-loan-title">Add Loan</div>
+      <button class="modal-close" onclick="closeModal('modal-loan')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="loan-edit-id" />
+      <div class="form-group">
+        <label class="form-label">App Name <span class="required">*</span></label>
+        <select class="form-select" id="loan-app" onchange="toggleLoanOtherField(this)">
+        <option value="">Select app...</option>
+      </select>
+      <div id="loan-other-wrap" style="display:none;margin-top:10px;">
+        <input class="form-input" id="loan-app-other" type="text" placeholder="Type the app name..." />
+      </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Amount Borrowed (KES) <span class="required">*</span></label>
+        <input class="form-input" id="loan-amount" type="number" placeholder="e.g. 2500" min="0" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Date Taken <span class="required">*</span></label>
+          <input class="form-input" id="loan-date-taken" type="date" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Due Date <span class="required">*</span></label>
+          <input class="form-input" id="loan-due-date" type="date" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Status <span class="required">*</span></label>
+        <select class="form-select" id="loan-status">
+          <option value="Active">Active</option>
+          <option value="Repaid">Repaid</option>
+          <option value="Overdue">Overdue</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-loan')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveLoan()" id="btn-save-loan">Save Loan</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: ADD LIMIT ENTRY
+============================================================ -->
+<div class="modal-overlay" id="modal-limit">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Log Limit</div>
+      <button class="modal-close" onclick="closeModal('modal-limit')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">App Name <span class="required">*</span></label>
+        <select class="form-select" id="limit-app">
+          <option value="">Select app...</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Current Limit (KES) <span class="required">*</span></label>
+        <input class="form-input" id="limit-amount" type="number" placeholder="e.g. 5000" min="0" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Date <span class="required">*</span></label>
+        <input class="form-input" id="limit-date" type="date" />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-limit')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveLimit()">Save Entry</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: ADD GOAL
+============================================================ -->
+<div class="modal-overlay" id="modal-goal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Add Goal</div>
+      <button class="modal-close" onclick="closeModal('modal-goal')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Goal Name <span class="required">*</span></label>
+        <input class="form-input" id="goal-name" type="text" placeholder="e.g. Clear Branch by August" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Target Description</label>
+        <input class="form-input" id="goal-target" type="text" placeholder="e.g. Reduce active apps from 4 to 2" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Target Date</label>
+        <input class="form-input" id="goal-date" type="date" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Progress (0 to 100%)</label>
+        <input class="form-input" id="goal-progress" type="number" placeholder="0" min="0" max="100" />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-goal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveGoal()">Save Goal</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: DELETE ACCOUNT CONFIRMATION
+============================================================ -->
+<div class="modal-overlay" id="modal-delete">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" style="color:var(--red-text);">Delete Account</div>
+      <button class="modal-close" onclick="closeModal('modal-delete')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="alert alert-error show" style="margin-bottom:20px;">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+          <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+        This will permanently delete your account and all your data. This cannot be undone.
+      </div>
+      <p style="font-size:13px; color:var(--text-secondary); margin-bottom:16px;">
+        To confirm, type <strong style="color:var(--text-primary);">DELETE</strong> below.
+      </p>
+      <input class="form-input" id="delete-confirm-input" type="text" placeholder="Type DELETE to confirm" />
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-delete')">Cancel</button>
+      <button class="btn btn-danger" onclick="deleteAccount()">Delete My Account</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PRINT REPORT VIEW
+============================================================ -->
+<div id="print-report" class="print-only">
+  <div class="report-print-header">
+    <div>
+      <div style="font-size:22pt; font-weight:700; color:#1B2A5E;">CREDIT POA</div>
+      <div style="font-size:10pt; color:#3A8C2F;">Know Where You Stand Financially</div>
+    </div>
+    <div style="text-align:right; font-size:9pt; color:#555555;">
+      <div>Loan Profile Report</div>
+      <div id="print-date"></div>
+    </div>
+  </div>
+  <div id="print-report-content"></div>
+  <div style="margin-top:40px; padding-top:16px; border-top:1px solid #cccccc; font-size:8pt; color:#888888;">
+    Credit Poa is an independent financial review service. This report is not an official CRB report, credit score, or financial clearance certificate. All information is based on client-provided data.
+  </div>
+</div>
+
+<!-- ============================================================
+     FIREBASE + SYSTEM LOGIC
+============================================================ -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {
+  getAuth, onAuthStateChanged, signOut, updatePassword, deleteUser
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import {
+  getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc,
+  collection, addDoc, getDocs, query, orderBy, serverTimestamp,
+  where
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDPxifG1597SjirD1T1lncLIYXmyuesbzw",
+  authDomain: "credit-poa.firebaseapp.com",
+  projectId: "credit-poa",
+  storageBucket: "credit-poa.firebasestorage.app",
+  messagingSenderId: "210625667819",
+  appId: "1:210625667819:web:8667a4b2d735fa299bd4ae"
+};
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
+
+const ADMIN_EMAIL              = "creditpoa@gmail.com";
+const CLOUDINARY_CLOUD_NAME    = "hztm3zo8";
+const CLOUDINARY_UPLOAD_PRESET = "Creditpoa-profiles";
+
+const LOAN_APPS = [
+  "AdvancePoa","BetaPesa","Boreleza","Bora Credit","Branch","Chapaa Loan",
+  "Choice Sasa Loan","Daviva","FairKash","Fiza","Flashpesa","Fuliza (M-Pesa)",
+  "Hela Pesa","Helasasa","Hustler Fund","Instarcash","iPesa","Kamoa",
+  "Kashbean Loan","KCB M-Pesa","Koro","Lendplus","LittlePesa","Linker Mkopo",
+  "Meta Loan","M-Shwari","MyMogo","Okash","Opesa","Pawa Kash","PesaIn",
+  "RocketPesa","Skypesa","Stawika","Tala","Tena Pesa","Timiza","TumaCash",
+  "Tuma Loan","Zash Loan","Zenka","ZK Pesa","Zuricash","4coins","Other"
+];
+
+let currentUser  = null;
+let userData     = null;
+let loansCache   = [];
+let limitsCache  = [];
+let goalsCache   = [];
+let notifsCache  = [];
+let calendarDate = new Date();
+
+// ---- AUTH GUARD ----
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { window.location.href = 'login.html'; return; }
+  if (user.email === ADMIN_EMAIL) { window.location.href = 'admin.html'; return; }
+  if (currentUser) return;
+  currentUser = user;
+  await loadUser();
+});
+
+// ---- LOAD USER DATA ----
+async function loadUser() {
+  try {
+    const snap = await getDoc(doc(db, 'users', currentUser.uid));
+    if (!snap.exists()) {
+      console.error('No Firestore document found for user:', currentUser.uid);
+      showAlert('alert-overview', 'Account setup incomplete. Please contact support via WhatsApp.', 'info');
+      return;
+    }
+    userData = snap.data();
+
+    if (userData.status === 'expired') {
+      window.location.href = 'login.html?expired=1'; return;
+    }
+    if (userData.status === 'pending') {
+      showAlert('alert-overview', 'Your account is pending activation. Please wait for confirmation via WhatsApp.', 'info');
+      return;
+    }
+    if (userData.status !== 'active') {
+      await signOut(auth); window.location.href = 'login.html'; return;
+    }
+
+    renderHeader();
+    renderOverview();
+    renderExpiryBanner();
+    await loadLoans();
+    await loadLimits();
+    await loadGoals();
+    await loadNotifications();
+    await loadLoanCosts();
+    loadIntakeForm();
+    buildLoanAppSelects();
+    buildLoanAppsCheckboxGrid();
+    setTodayDates();
+    renderCalendar();
+    renderProgressTracker();
+    generateRepaymentPlan();
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+// ---- BEHAVIOUR INSIGHTS ----
+function renderBehaviourInsights() {
+  const el = document.getElementById('behaviour-insights');
+  if (!el) return;
+  if (loansCache.length === 0) {
+    el.innerHTML = '<p style="font-size:13px;color:var(--text-muted);">Log your loans to see your behaviour insights.</p>';
+    return;
+  }
+  const total   = loansCache.length;
+  const repaid  = loansCache.filter(l => l.status === 'Repaid').length;
+  const overdue = loansCache.filter(l => l.status === 'Overdue').length;
+  const active  = loansCache.filter(l => l.status === 'Active').length;
+  const onTimeRatio  = total > 0 ? Math.round(((repaid) / total) * 100) : 0;
+  const overdueRatio = total > 0 ? Math.round((overdue / total) * 100) : 0;
+  const intake  = userData.intakeForm || {};
+
+  let pattern = 'Mixed repayment behaviour detected.';
+  let trend   = 'Not enough data to determine trend.';
+  let trendColor = 'var(--text-muted)';
+
+  if (intake.repaymentPattern === 'Always on time') { pattern = 'You consistently repay on time.'; trend = 'Improving trend.'; trendColor = '#6EE05E'; }
+  else if (intake.repaymentPattern === 'Mostly on time, occasionally late') { pattern = 'Mostly on time with occasional delays.'; trend = 'Stable with room to improve.'; trendColor = '#FCD34D'; }
+  else if (intake.repaymentPattern === 'Often late') { pattern = 'Frequent late repayments detected.'; trend = 'Declining behaviour.'; trendColor = '#FCA5A5'; }
+  else if (intake.repaymentPattern === 'Have defaulted on a loan before') { pattern = 'Previous default on record.'; trend = 'High risk pattern.'; trendColor = '#FCA5A5'; }
+
+  el.innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:16px;">
+      <div style="padding:14px;background:var(--surface-2);border-radius:10px;">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-muted);margin-bottom:6px;">On-Time Ratio</div>
+        <div style="font-size:22px;font-weight:800;color:${onTimeRatio >= 60 ? '#6EE05E' : '#FCA5A5'};">${onTimeRatio}%</div>
+        <div style="font-size:11px;color:var(--text-muted);">${repaid} of ${total} loans repaid</div>
+      </div>
+      <div style="padding:14px;background:var(--surface-2);border-radius:10px;">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-muted);margin-bottom:6px;">Overdue Rate</div>
+        <div style="font-size:22px;font-weight:800;color:${overdueRatio === 0 ? '#6EE05E' : '#FCA5A5'};">${overdueRatio}%</div>
+        <div style="font-size:11px;color:var(--text-muted);">${overdue} overdue loan${overdue !== 1 ? 's' : ''}</div>
+      </div>
+      <div style="padding:14px;background:var(--surface-2);border-radius:10px;">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-muted);margin-bottom:6px;">Active Now</div>
+        <div style="font-size:22px;font-weight:800;color:${active <= 2 ? '#6EE05E' : active <= 4 ? '#FCD34D' : '#FCA5A5'};">${active}</div>
+        <div style="font-size:11px;color:var(--text-muted);">active loan${active !== 1 ? 's' : ''}</div>
+      </div>
+    </div>
+    <div style="padding:12px;background:var(--surface-2);border-radius:8px;">
+      <div style="font-size:13px;color:var(--text-secondary);margin-bottom:6px;">${pattern}</div>
+      <div style="font-size:12px;font-weight:600;color:${trendColor};">${trend}</div>
+    </div>
+  `;
+}
+
+// ---- LENDER PERCEPTION ----
+function renderLenderPerception() {
+  const el = document.getElementById('lender-perception');
+  if (!el) return;
+  const score   = calculateWellnessScore().total;
+  const intake  = userData.intakeForm || {};
+  const overdue = loansCache.filter(l => l.status === 'Overdue').length;
+  const active  = loansCache.filter(l => l.status === 'Active').length;
+
+  const signals = [];
+
+  if (score >= 70) signals.push({ color: '#6EE05E', icon: '&#128994;', text: 'You appear low risk to lenders.' });
+  else if (score >= 50) signals.push({ color: '#FCD34D', icon: '&#128993;', text: 'You appear as a moderate risk borrower.' });
+  else signals.push({ color: '#FCA5A5', icon: '&#128308;', text: 'You may appear high risk to lenders.' });
+
+  if (intake.repaymentPattern === 'Always on time') signals.push({ color: '#6EE05E', icon: '&#9989;', text: 'Strong repayment record. Lenders reward this with higher limits.' });
+  else if (intake.repaymentPattern === 'Often late' || intake.repaymentPattern === 'Have defaulted on a loan before') signals.push({ color: '#FCA5A5', icon: '&#10060;', text: 'You may be seen as inconsistent with repayments.' });
+
+  if (overdue === 0 && loansCache.length > 0) signals.push({ color: '#6EE05E', icon: '&#9989;', text: 'No overdue loans. This is a positive signal.' });
+  if (overdue > 0) signals.push({ color: '#FCA5A5', icon: '&#9888;', text: overdue + ' overdue loan' + (overdue > 1 ? 's' : '') + ' detected. This reduces your limit eligibility.' });
+
+  if (active <= 2 && loansCache.length > 0) signals.push({ color: '#6EE05E', icon: '&#128994;', text: 'Low active loan count. You appear disciplined with borrowing.' });
+  if (active > 4) signals.push({ color: '#FCA5A5', icon: '&#128308;', text: 'Too many active loans. Lenders may decline new applications.' });
+
+  if (intake.crbStatus === 'Yes, currently listed') signals.push({ color: '#FCA5A5', icon: '&#10060;', text: 'CRB listing will block most formal loan applications.' });
+  if (intake.crbStatus === 'No, I have not') signals.push({ color: '#6EE05E', icon: '&#9989;', text: 'Clean CRB record. This opens doors to higher credit.' });
+
+  if (limitsCache.length >= 3) signals.push({ color: '#93C5FD', icon: '&#128200;', text: 'Improving limit trend over ' + limitsCache.length + ' logged entries.' });
+
+  if (signals.length === 0) { el.innerHTML = '<p style="font-size:13px;color:var(--text-muted);">Complete your intake form to see lender perception.</p>'; return; }
+
+  el.innerHTML = signals.map(s => `
+    <div style="display:flex;gap:12px;align-items:flex-start;padding:11px;border-radius:8px;background:var(--surface-2);margin-bottom:8px;">
+      <span style="font-size:14px;flex-shrink:0;">${s.icon}</span>
+      <span style="font-size:13px;color:var(--text-secondary);line-height:1.6;">${s.text}</span>
+    </div>`).join('');
+}
+
+// ---- BADGE SYSTEM ----
+function renderBadges() {
+  const strip   = document.getElementById('badge-strip');
+  if (!strip) return;
+  const active  = loansCache.filter(l => l.status === 'Active').length;
+  const repaid  = loansCache.filter(l => l.status === 'Repaid').length;
+  const overdue = loansCache.filter(l => l.status === 'Overdue').length;
+  const score   = calculateWellnessScore().total;
+  const intake  = userData.intakeForm || {};
+  const badges  = [];
+
+  if (repaid >= 3)  badges.push({ icon: '&#127942;', label: 'Consistent Repayer', color: 'rgba(58,140,47,0.15)', border: 'rgba(58,140,47,0.3)', text: '#6EE05E' });
+  if (score >= 70)  badges.push({ icon: '&#11088;', label: 'Strong Profile', color: 'rgba(58,140,47,0.15)', border: 'rgba(58,140,47,0.3)', text: '#6EE05E' });
+  if (active <= 1 && loansCache.length > 0) badges.push({ icon: '&#128994;', label: 'Low Borrower', color: 'rgba(58,140,47,0.15)', border: 'rgba(58,140,47,0.3)', text: '#6EE05E' });
+  if (overdue === 0 && loansCache.length > 0) badges.push({ icon: '&#9989;', label: 'No Overdue Loans', color: 'rgba(58,140,47,0.12)', border: 'rgba(58,140,47,0.25)', text: '#86EFAC' });
+  if (limitsCache.length >= 3) badges.push({ icon: '&#128200;', label: 'Limit Tracker', color: 'rgba(59,130,246,0.12)', border: 'rgba(59,130,246,0.25)', text: '#93C5FD' });
+  if (intake.crbStatus === 'No, I have not') badges.push({ icon: '&#128737;', label: 'CRB Clear', color: 'rgba(58,140,47,0.12)', border: 'rgba(58,140,47,0.25)', text: '#86EFAC' });
+  if (score < 40)   badges.push({ icon: '&#128680;', label: 'Needs Improvement', color: 'rgba(239,68,68,0.10)', border: 'rgba(239,68,68,0.25)', text: '#FCA5A5' });
+
+  if (badges.length === 0) { strip.innerHTML = ''; return; }
+
+  strip.innerHTML = badges.map(b => `
+    <div style="display:inline-flex;align-items:center;gap:7px;padding:7px 14px;background:${b.color};border:1px solid ${b.border};border-radius:20px;font-size:12px;font-weight:600;color:${b.text};">
+      <span>${b.icon}</span>${b.label}
+    </div>`).join('');
+}
+
+// ---- HEADER ----
+function renderHeader() {
+  const wrap = document.getElementById('header-avatar-wrap');
+  if (userData.photoURL) {
+    wrap.innerHTML = `<img class="header-avatar" src="${userData.photoURL}" alt="Profile" onclick="showSection('profile')" />`;
+  } else {
+    const initials = (userData.name || 'U').charAt(0).toUpperCase();
+    wrap.innerHTML = `<div class="header-avatar-placeholder" onclick="showSection('profile')">${initials}</div>`;
+  }
+  document.getElementById('p-name').value  = userData.name  || '';
+  document.getElementById('p-phone').value = userData.phone || '';
+  document.getElementById('p-email').value = currentUser.email || '';
+}
+
+// ---- OVERVIEW ----
+function renderOverview() {
+  const hour = new Date().getHours();
+  const greet = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+  const name = (userData.name || '').split(' ')[0];
+  document.getElementById('overview-greeting').textContent = `${greet}, ${name || 'there'}.`;
+  renderExpiryBanner();
+}
+
+function renderExpiryBanner() {
+  if (!userData.expiryDate) return;
+  const expiry = userData.expiryDate.toDate ? userData.expiryDate.toDate() : new Date(userData.expiryDate);
+  const now = new Date();
+  const diff = Math.ceil((expiry - now) / (1000 * 60 * 60 * 24));
+  const banner = document.getElementById('expiry-banner');
+  const stat   = document.getElementById('stat-expiry');
+  const sub    = document.getElementById('stat-expiry-sub');
+
+  stat.textContent = diff <= 0 ? 'Expired' : `${diff}d left`;
+  sub.textContent  = expiry.toLocaleDateString('en-KE', { day:'numeric', month:'short', year:'numeric' });
+
+  if (diff <= 7 && diff > 0) {
+    document.getElementById('expiry-banner-text').textContent =
+      `Your access expires in ${diff} day${diff === 1 ? '' : 's'}. Renew now to keep your dashboard and data.`;
+    banner.style.display = 'flex';
+  } else if (diff <= 0) {
+    banner.style.display = 'flex';
+    document.getElementById('expiry-banner-text').textContent = 'Your access has expired. Renew to continue using Credit Poa.';
+  }
+}
+
+// ---- WELLNESS SCORE ----
+function calculateWellnessScore() {
+  const activeLoans  = loansCache.filter(l => l.status === 'Active').length;
+  const overdueLoans = loansCache.filter(l => l.status === 'Overdue').length;
+  const repaidLoans  = loansCache.filter(l => l.status === 'Repaid').length;
+  const totalLoans   = loansCache.length;
+  const intake       = userData.intakeForm || {};
+
+  // 1. Repayment Consistency (25 pts)
+  let repaymentScore = 20;
+  if (intake.repaymentPattern === 'Always on time') repaymentScore = 25;
+  else if (intake.repaymentPattern === 'Mostly on time, occasionally late') repaymentScore = 18;
+  else if (intake.repaymentPattern === 'Often late') repaymentScore = 10;
+  else if (intake.repaymentPattern === 'Have defaulted on a loan before') repaymentScore = 5;
+  if (overdueLoans > 0) repaymentScore = Math.max(0, repaymentScore - (overdueLoans * 3));
+
+  // 2. Borrowing Volume (20 pts)
+  let volumeScore = 20;
+  if (activeLoans > 5) volumeScore = 5;
+  else if (activeLoans > 3) volumeScore = 10;
+  else if (activeLoans > 1) volumeScore = 15;
+
+  // 3. Balance Management (20 pts)
+  let balanceScore = 20;
+  const bal = intake.totalBalance || '';
+  if (bal === '50,000+') balanceScore = 4;
+  else if (bal === '10,001-50,000') balanceScore = 8;
+  else if (bal === '2,001-10,000') balanceScore = 13;
+  else if (bal === '501-2,000') balanceScore = 17;
+  else if (bal === '0-500') balanceScore = 20;
+
+  // 4. CRB Safety (20 pts)
+  let crbScore = 20;
+  if (intake.crbStatus === 'Yes, currently listed') crbScore = 2;
+  else if (intake.crbStatus === 'Yes, but cleared') crbScore = 12;
+  else if (intake.crbStatus === 'No, I have not') crbScore = 20;
+  else crbScore = 15;
+
+  // 5. Limit Growth Potential (15 pts)
+  let growthScore = 8;
+  if (limitsCache.length > 0) {
+    const appLimits = {};
+    limitsCache.forEach(l => {
+      if (!appLimits[l.app] || l.amount > appLimits[l.app]) appLimits[l.app] = l.amount;
+    });
+    const maxLimit = Math.max(...Object.values(appLimits));
+    if (maxLimit >= 50000) growthScore = 15;
+    else if (maxLimit >= 20000) growthScore = 12;
+    else if (maxLimit >= 5000) growthScore = 9;
+    else growthScore = 6;
+  }
+
+  const total = repaymentScore + volumeScore + balanceScore + crbScore + growthScore;
+
+  return {
+    total,
+    repayment: repaymentScore,
+    volume: volumeScore,
+    balance: balanceScore,
+    crb: crbScore,
+    growth: growthScore
+  };
+}
+
+function renderWellnessScore() {
+  const s = calculateWellnessScore();
+  const color = s.total >= 70 ? 'green' : s.total >= 40 ? 'amber' : 'red';
+  const verdict = s.total >= 70 ? 'Good standing. Keep up the positive habits.'
+                : s.total >= 40 ? 'Moderate. There is room to improve.'
+                : 'Needs attention. Follow the tips below to improve.';
+
+  ['overview-score', 'wellness-score-number'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.textContent = s.total; el.className = `score-number ${color}`; }
+  });
+
+  ['overview-score-bar', 'wellness-score-bar'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.style.width = `${s.total}%`; el.className = `score-bar ${color}`; }
+  });
+
+  const lbl = document.getElementById('overview-score-label');
+  if (lbl) lbl.textContent = verdict;
+  const vrd = document.getElementById('wellness-score-verdict');
+  if (vrd) vrd.textContent = verdict;
+
+  const dims = { repayment: s.repayment, volume: s.volume, balance: s.balance, crb: s.crb, growth: s.growth };
+  const maxes = { repayment: 25, volume: 20, balance: 20, crb: 20, growth: 15 };
+  Object.keys(dims).forEach(k => {
+    const bar = document.getElementById(`dim-${k}`);
+    const val = document.getElementById(`dim-${k}-val`);
+    if (bar) bar.style.width = `${(dims[k] / maxes[k]) * 100}%`;
+    if (val) val.textContent = dims[k];
+  });
+
+  renderWellnessTips(s);
+  updateStats();
+}
+
+function renderWellnessTips(s) {
+  const intake   = userData.intakeForm || {};
+  const active   = loansCache.filter(l => l.status === 'Active');
+  const overdue  = loansCache.filter(l => l.status === 'Overdue');
+  const tips     = [];
+
+  // Repayment tips
+  if (s.repayment < 20) {
+    tips.push({ color: 'red', text: 'Your repayment consistency is low. Set a phone reminder 2 days before every due date and pay before the deadline, not on it.' });
+  } else if (s.repayment < 24) {
+    tips.push({ color: 'amber', text: 'You are mostly on time but occasional late payments are hurting your score. Try to repay within 24 hours of your due date.' });
+  }
+
+  // Overdue loans
+  if (overdue.length > 0) {
+    tips.push({ color: 'red', text: `You have ${overdue.length} overdue loan${overdue.length > 1 ? 's' : ''}. Clear ${overdue.length > 1 ? 'these' : 'this'} immediately. Overdue loans block limit increases across all your apps.` });
+  }
+
+  // Volume tips
+  if (active.length > 4) {
+    tips.push({ color: 'red', text: `You currently have ${active.length} active loans. Lenders view this as high risk. Focus on clearing the smallest ones first to reduce your count quickly.` });
+  } else if (active.length > 2) {
+    tips.push({ color: 'amber', text: `${active.length} active loans is manageable but aim to stay at 2 or fewer. Clear one before taking a new one.` });
+  }
+
+  // Balance tips
+  if (s.balance < 10) {
+    tips.push({ color: 'red', text: 'Your total outstanding balance is very high relative to your profile. Avoid new loans until you clear at least 40% of your current balance.' });
+  } else if (s.balance < 16) {
+    tips.push({ color: 'amber', text: 'Your balance is moderate. Prioritise the loan with the highest interest rate first. This saves you money and improves your score faster.' });
+  }
+
+  // CRB tips
+  if (intake.crbStatus === 'Yes, currently listed') {
+    tips.push({ color: 'red', text: 'You are currently listed on CRB. Contact the specific lender directly and negotiate a clearance. Even a partial payment agreement can begin the delisting process.' });
+  } else if (intake.crbStatus === 'Yes, but cleared') {
+    tips.push({ color: 'amber', text: 'You were previously listed but are now cleared. Maintain a clean repayment record for 6 consecutive months to fully rebuild lender confidence.' });
+  }
+
+  // Recovery agent
+  if (intake.recoveryAgent === 'Yes') {
+    tips.push({ color: 'red', text: 'You have been contacted by a recovery agent. Respond to them directly and agree on a repayment schedule. Ignoring recovery contacts leads to permanent blacklisting.' });
+  }
+
+  // Limit growth
+  if (s.growth < 8) {
+    tips.push({ color: 'blue', text: 'Your limit growth potential is low. The fastest way to grow limits is to borrow small amounts and repay before the due date consistently for 3 months on the same app.' });
+  } else if (limitsCache.length === 0) {
+    tips.push({ color: 'blue', text: 'Start logging your loan limits in the Limit History section. Tracking your limits over time shows you which apps are rewarding your good behaviour.' });
+  }
+
+  // Employment based tip
+  if (intake.employment === 'Unemployed') {
+    tips.push({ color: 'amber', text: 'Borrowing without a regular income increases your risk significantly. Focus on clearing existing loans before taking new ones and explore income options before your next application.' });
+  }
+
+  // Positive tips
+  if (s.repayment >= 23) {
+    tips.push({ color: 'green', text: 'Your repayment consistency is strong. Keep it up. Lenders reward consistent on-time payers with limit increases, usually after 3 to 6 months of clean records.' });
+  }
+  if (active.length <= 1 && s.total >= 60) {
+    tips.push({ color: 'green', text: 'You are managing your loans well. With your current profile you are in a strong position to qualify for higher limits on Branch, Tala, and KCB M-Pesa.' });
+  }
+  if (tips.length === 0) {
+    tips.push({ color: 'green', text: 'Your profile is in strong standing. Continue paying on time, log your limits regularly, and consider applying for a higher limit on your best performing app.' });
+  }
+
+  const container = document.getElementById('wellness-tips');
+  if (!container) return;
+  container.innerHTML = tips.map(t => `
+    <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:8px;background:var(--surface-2);margin-bottom:10px;">
+      <span style="width:8px;height:8px;border-radius:50%;background:var(--${t.color});flex-shrink:0;margin-top:5px;"></span>
+      <span style="font-size:13px;color:var(--text-secondary);line-height:1.6;">${t.text}</span>
+    </div>
+  `).join('');
+}
+
+// ---- STATS ----
+function updateStats() {
+  const active = loansCache.filter(l => l.status === 'Active');
+  document.getElementById('stat-active-loans').textContent = active.length;
+
+  const totalOwed = active.reduce((sum, l) => sum + (parseFloat(l.amount) || 0), 0);
+  document.getElementById('stat-total-owed').textContent = `KES ${totalOwed.toLocaleString()}`;
+
+  const upcoming = active
+    .filter(l => l.dueDate)
+    .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+
+  if (upcoming.length > 0) {
+    const next = upcoming[0];
+    const d = new Date(next.dueDate);
+    document.getElementById('stat-next-due').textContent = d.toLocaleDateString('en-KE', { day:'numeric', month:'short' });
+    document.getElementById('stat-next-due-app').textContent = next.app;
+  } else {
+    document.getElementById('stat-next-due').textContent = 'None';
+    document.getElementById('stat-next-due-app').textContent = '';
+  }
+}
+
+// ---- LOANS ----
+async function loadLoans() {
+  try {
+    const q = query(collection(db, 'users', currentUser.uid, 'loans'), orderBy('dateTaken', 'desc'));
+    const snap = await getDocs(q);
+    loansCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderLoansTable();
+    renderWellnessScore();
+    renderCalendar();
+    renderProgressTracker();
+    generateRepaymentPlan();
+    renderBadges();
+    renderBehaviourInsights();
+    renderLenderPerception();
+  } catch (e) { console.error(e); }
+}
+
+function renderLoansTable() {
+  const tbody = document.getElementById('loans-table-body');
+  if (loansCache.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state">
+      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="width:48px;height:48px;margin:0 auto 16px;opacity:0.35;">
+        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
+        <rect x="9" y="3" width="6" height="4" rx="1"/>
+      </svg>
+      <h3>No loans logged yet</h3>
+      <p>Add your first loan entry to start tracking.</p>
+      <button class="btn btn-primary" onclick="openLoanModal()">Add Your First Loan</button>
+    </div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = loansCache.map(loan => {
+    const statusClass = loan.status === 'Active' ? 'badge-blue' : loan.status === 'Repaid' ? 'badge-green' : 'badge-red';
+    const due = loan.dueDate ? new Date(loan.dueDate).toLocaleDateString('en-KE', { day:'numeric', month:'short', year:'numeric' }) : 'N/A';
+    const taken = loan.dateTaken ? new Date(loan.dateTaken).toLocaleDateString('en-KE', { day:'numeric', month:'short', year:'numeric' }) : 'N/A';
+    return `<tr>
+      <td><strong>${loan.app}</strong></td>
+      <td>KES ${parseFloat(loan.amount || 0).toLocaleString()}</td>
+      <td class="td-muted">${taken}</td>
+      <td class="td-muted">${due}</td>
+      <td><span class="badge ${statusClass}"><span class="dot"></span>${loan.status}</span></td>
+      <td>
+        <div class="flex gap-2">
+          <button class="btn btn-ghost btn-sm" onclick="editLoan('${loan.id}')">Edit</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteLoan('${loan.id}')">Delete</button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+window.openLoanModal = (id = null) => {
+  document.getElementById('loan-edit-id').value = '';
+  document.getElementById('loan-app').value = '';
+  document.getElementById('loan-amount').value = '';
+  document.getElementById('loan-date-taken').value = '';
+  document.getElementById('loan-due-date').value = '';
+  document.getElementById('loan-status').value = 'Active';
+  document.getElementById('modal-loan-title').textContent = 'Add Loan';
+  openModal('modal-loan');
+};
+
+window.editLoan = (id) => {
+  const loan = loansCache.find(l => l.id === id);
+  if (!loan) return;
+  document.getElementById('loan-edit-id').value = id;
+  document.getElementById('loan-app').value = loan.app || '';
+  document.getElementById('loan-amount').value = loan.amount || '';
+  document.getElementById('loan-date-taken').value = loan.dateTaken || '';
+  document.getElementById('loan-due-date').value = loan.dueDate || '';
+  document.getElementById('loan-status').value = loan.status || 'Active';
+  document.getElementById('modal-loan-title').textContent = 'Edit Loan';
+  openModal('modal-loan');
+};
+
+window.saveLoan = async () => {
+  const editId = document.getElementById('loan-edit-id').value;
+  const appSel = document.getElementById('loan-app').value;
+const app    = appSel === 'Other' ? (document.getElementById('loan-app-other').value.trim() || 'Other') : appSel;
+  const amount = document.getElementById('loan-amount').value;
+  const taken  = document.getElementById('loan-date-taken').value;
+  const due    = document.getElementById('loan-due-date').value;
+  const status = document.getElementById('loan-status').value;
+
+  if (!app || !amount || !taken || !due) {
+    showAlert('alert-loan', 'Please fill in all required fields.'); return;
+  }
+
+  const btn = document.getElementById('btn-save-loan');
+  btn.disabled = true; btn.textContent = 'Saving...';
+
+  try {
+    const data = { app, amount: parseFloat(amount), dateTaken: taken, dueDate: due, status, updatedAt: serverTimestamp() };
+    if (editId) {
+      await updateDoc(doc(db, 'users', currentUser.uid, 'loans', editId), data);
+    } else {
+      data.createdAt = serverTimestamp();
+      await addDoc(collection(db, 'users', currentUser.uid, 'loans'), data);
+      await addNotification('Loan added', `${app} loan of KES ${parseFloat(amount).toLocaleString()} has been logged.`, 'blue');
+    }
+    closeModal('modal-loan');
+    await loadLoans();
+  } catch (e) {
+    showAlert('alert-loan', 'Failed to save. Please try again.');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Save Loan';
+  }
+};
+
+window.deleteLoan = async (id) => {
+  if (!confirm('Delete this loan entry?')) return;
+  try {
+    await deleteDoc(doc(db, 'users', currentUser.uid, 'loans', id));
+    await loadLoans();
+  } catch (e) { showAlert('alert-loan', 'Failed to delete. Please try again.'); }
+};
+
+// ---- LIMITS ----
+async function loadLimits() {
+  try {
+    const q = query(collection(db, 'users', currentUser.uid, 'limits'), orderBy('date', 'desc'));
+    const snap = await getDocs(q);
+    limitsCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderLimitsTable();
+    renderLimitChart();
+    renderWellnessScore();
+  } catch (e) { console.error(e); }
+}
+
+function renderLimitsTable() {
+  const tbody = document.getElementById('limits-table-body');
+  if (limitsCache.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="4"><div class="empty-state">
+      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="width:48px;height:48px;margin:0 auto 16px;opacity:0.35;">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+      </svg>
+      <h3>No entries yet</h3>
+      <p>Start logging your limits to track your growth.</p>
+      <button class="btn btn-primary" onclick="openLimitModal()">Log First Limit</button>
+    </div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = limitsCache.map(l => {
+    const d = l.date ? new Date(l.date).toLocaleDateString('en-KE', { day:'numeric', month:'short', year:'numeric' }) : 'N/A';
+    return `<tr>
+      <td><strong>${l.app}</strong></td>
+      <td>KES ${parseFloat(l.amount || 0).toLocaleString()}</td>
+      <td class="td-muted">${d}</td>
+      <td><button class="btn btn-danger btn-sm" onclick="deleteLimit('${l.id}')">Delete</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function renderLimitChart() {
+  const area = document.getElementById('limit-chart-area');
+  if (limitsCache.length === 0) {
+    area.innerHTML = `<div class="empty-state" style="padding:32px 0;">
+      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="width:48px;height:48px;margin:0 auto 16px;opacity:0.35;">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+      </svg>
+      <h3>No limit data yet</h3>
+      <p>Log your first limit entry to start tracking your growth.</p>
+    </div>`;
+    return;
+  }
+
+  const byApp = {};
+  limitsCache.forEach(l => {
+    if (!byApp[l.app] || l.amount > byApp[l.app]) byApp[l.app] = l.amount;
+  });
+
+  const apps   = Object.keys(byApp);
+  const max    = Math.max(...Object.values(byApp));
+
+  area.innerHTML = `
+    <div style="display:flex; align-items:flex-end; gap:12px; min-height:140px; padding:0 8px;">
+      ${apps.map(a => {
+        const h = max > 0 ? Math.round((byApp[a] / max) * 120) : 4;
+        return `<div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:8px;">
+          <div style="font-size:11px; color:var(--text-muted);">KES ${(byApp[a]/1000).toFixed(1)}k</div>
+          <div style="width:100%; height:${h}px; background:var(--green); border-radius:6px 6px 0 0; transition:height 0.6s ease;"></div>
+          <div style="font-size:11px; color:var(--text-muted); text-align:center; word-break:break-word;">${a}</div>
+        </div>`;
+      }).join('')}
+    </div>
+  `;
+}
+
+window.openLimitModal = () => {
+  document.getElementById('limit-app').value = '';
+  document.getElementById('limit-amount').value = '';
+  document.getElementById('limit-date').value = new Date().toISOString().split('T')[0];
+  openModal('modal-limit');
+};
+
+window.saveLimit = async () => {
+  const app    = document.getElementById('limit-app').value;
+  const amount = document.getElementById('limit-amount').value;
+  const date   = document.getElementById('limit-date').value;
+
+  if (!app || !amount || !date) {
+    showAlert('alert-limit', 'Please fill in all required fields.'); return;
+  }
+
+  try {
+    await addDoc(collection(db, 'users', currentUser.uid, 'limits'), {
+      app, amount: parseFloat(amount), date, createdAt: serverTimestamp()
+    });
+    closeModal('modal-limit');
+    await loadLimits();
+  } catch (e) { showAlert('alert-limit', 'Failed to save. Please try again.'); }
+};
+
+window.deleteLimit = async (id) => {
+  if (!confirm('Delete this limit entry?')) return;
+  try {
+    await deleteDoc(doc(db, 'users', currentUser.uid, 'limits', id));
+    await loadLimits();
+  } catch (e) { showAlert('alert-limit', 'Failed to delete. Please try again.'); }
+};
+
+// ---- CALENDAR ----
+function renderCalendar() {
+  const year  = calendarDate.getFullYear();
+  const month = calendarDate.getMonth();
+  const today = new Date();
+
+  document.getElementById('calendar-month-label').textContent =
+    new Date(year, month, 1).toLocaleDateString('en-KE', { month:'long', year:'numeric' });
+
+  const firstDay   = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  const dueDates = {};
+  loansCache.filter(l => l.status === 'Active' || l.status === 'Overdue').forEach(loan => {
+    if (!loan.dueDate) return;
+    const d = new Date(loan.dueDate);
+    if (d.getFullYear() === year && d.getMonth() === month) {
+      const key = d.getDate();
+      if (!dueDates[key]) dueDates[key] = [];
+      dueDates[key].push(loan);
+    }
+  });
+
+  let cells = '';
+  for (let i = 0; i < firstDay; i++) {
+    cells += `<div class="calendar-cell empty"></div>`;
+  }
+  for (let d = 1; d <= daysInMonth; d++) {
+    const thisDate = new Date(year, month, d);
+    const isToday  = thisDate.toDateString() === today.toDateString();
+    const loans    = dueDates[d] || [];
+    let cls = 'calendar-cell';
+    if (isToday) cls += ' today';
+
+    if (loans.length > 0) {
+      cls += ' has-due';
+      const statuses = loans.map(l => l.status);
+      if (statuses.includes('Overdue') || thisDate < today) cls += ' due-overdue';
+      else if (isToday) cls += ' due-today';
+      else cls += ' due-upcoming';
+    }
+
+    cells += `<div class="${cls}" onclick="showCalendarDetail(${d}, ${month}, ${year})">${d}</div>`;
+  }
+
+  document.getElementById('calendar-cells').innerHTML = cells;
+  renderUpcomingDues();
+}
+
+window.changeMonth = (dir) => {
+  calendarDate.setMonth(calendarDate.getMonth() + dir);
+  renderCalendar();
+  document.getElementById('calendar-detail').classList.remove('show');
+};
+
+window.showCalendarDetail = (day, month, year) => {
+  const date  = new Date(year, month, day);
+  const loans = loansCache.filter(l => {
+    if (!l.dueDate) return false;
+    const d = new Date(l.dueDate);
+    return d.getDate() === day && d.getMonth() === month && d.getFullYear() === year;
+  });
+
+  const detail  = document.getElementById('calendar-detail');
+  const content = document.getElementById('calendar-detail-content');
+
+  if (loans.length === 0) {
+    detail.classList.remove('show'); return;
+  }
+
+  content.innerHTML = `
+    <div style="font-size:12px; font-weight:600; color:var(--text-muted); margin-bottom:10px;">
+      ${date.toLocaleDateString('en-KE', { weekday:'long', day:'numeric', month:'long' })}
+    </div>
+    ${loans.map(l => `
+      <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); font-size:13px;">
+        <strong>${l.app}</strong>
+        <span style="color:var(--text-muted);">KES ${parseFloat(l.amount || 0).toLocaleString()}</span>
+      </div>
+    `).join('')}
+  `;
+  detail.classList.add('show');
+};
+
+function renderUpcomingDues() {
+  const now    = new Date();
+  const list   = document.getElementById('upcoming-dues-list');
+  const month  = calendarDate.getMonth();
+  const year   = calendarDate.getFullYear();
+
+  const upcoming = loansCache
+    .filter(l => {
+      if (!l.dueDate) return false;
+      const d = new Date(l.dueDate);
+      return d.getMonth() === month && d.getFullYear() === year && (l.status === 'Active' || l.status === 'Overdue');
+    })
+    .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+
+  if (upcoming.length === 0) {
+    list.innerHTML = `<p style="font-size:13px; color:var(--text-muted);">No upcoming due dates this month.</p>`;
+    return;
+  }
+
+  list.innerHTML = upcoming.map(l => {
+    const d    = new Date(l.dueDate);
+    const diff = Math.ceil((d - now) / (1000 * 60 * 60 * 24));
+    const cls  = diff < 0 ? 'badge-red' : diff === 0 ? 'badge-amber' : 'badge-blue';
+    const lbl  = diff < 0 ? `${Math.abs(diff)}d overdue` : diff === 0 ? 'Today' : `in ${diff}d`;
+    return `<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--border); font-size:13px;">
+      <div>
+        <strong>${l.app}</strong>
+        <div style="font-size:11px; color:var(--text-muted);">KES ${parseFloat(l.amount || 0).toLocaleString()}</div>
+      </div>
+      <span class="badge ${cls}">${lbl}</span>
+    </div>`;
+  }).join('');
+}
+
+// ---- GOALS ----
+async function loadGoals() {
+  try {
+    const q = query(collection(db, 'users', currentUser.uid, 'goals'), orderBy('createdAt', 'desc'));
+    const snap = await getDocs(q);
+    goalsCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderGoals();
+  } catch (e) { console.error(e); }
+}
+
+function renderGoals() {
+  const grid = document.getElementById('goals-grid');
+  if (goalsCache.length === 0) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;">
+      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="width:48px;height:48px;margin:0 auto 16px;opacity:0.35;">
+        <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+      </svg>
+      <h3>No goals yet</h3>
+      <p>Set a repayment goal and track your progress.</p>
+      <button class="btn btn-primary" onclick="openGoalModal()">Set Your First Goal</button>
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = goalsCache.map(g => {
+    const pct   = Math.min(100, Math.max(0, g.progress || 0));
+    const color = pct >= 100 ? 'green' : pct >= 50 ? 'amber' : 'red';
+    const target = g.targetDate ? new Date(g.targetDate).toLocaleDateString('en-KE', { day:'numeric', month:'short', year:'numeric' }) : '';
+    return `<div class="goal-card">
+      <div class="goal-header">
+        <div class="goal-name">${g.name}</div>
+        <div class="flex gap-2">
+          <button class="btn btn-ghost btn-sm" onclick="updateGoalProgress('${g.id}', ${pct})">Update</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteGoal('${g.id}')">Delete</button>
+        </div>
+      </div>
+      ${g.target ? `<div style="font-size:12px; color:var(--text-secondary); margin-bottom:12px;">${g.target}</div>` : ''}
+      <div class="goal-progress-wrap">
+        <div class="goal-progress-bar" style="width:${pct}%; background:var(--${color});"></div>
+      </div>
+      <div class="flex-between goal-meta mt-3">
+        <span>${pct}% complete</span>
+        ${target ? `<span>Target: ${target}</span>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+window.openGoalModal = () => {
+  document.getElementById('goal-name').value = '';
+  document.getElementById('goal-target').value = '';
+  document.getElementById('goal-date').value = '';
+  document.getElementById('goal-progress').value = '0';
+  openModal('modal-goal');
+};
+
+window.saveGoal = async () => {
+  const name     = document.getElementById('goal-name').value.trim();
+  const target   = document.getElementById('goal-target').value.trim();
+  const date     = document.getElementById('goal-date').value;
+  const progress = parseInt(document.getElementById('goal-progress').value) || 0;
+
+  if (!name) { showAlert('alert-goal', 'Please enter a goal name.'); return; }
+
+  try {
+    await addDoc(collection(db, 'users', currentUser.uid, 'goals'), {
+      name, target, targetDate: date, progress, createdAt: serverTimestamp()
+    });
+    closeModal('modal-goal');
+    await loadGoals();
+  } catch (e) { showAlert('alert-goal', 'Failed to save. Please try again.'); }
+};
+
+window.updateGoalProgress = async (id, current) => {
+  const val = prompt(`Update progress (0 to 100). Current: ${current}%`);
+  if (val === null) return;
+  const num = Math.min(100, Math.max(0, parseInt(val) || 0));
+  try {
+    await updateDoc(doc(db, 'users', currentUser.uid, 'goals', id), { progress: num });
+    await loadGoals();
+  } catch (e) { console.error(e); }
+};
+
+window.deleteGoal = async (id) => {
+  if (!confirm('Delete this goal?')) return;
+  try {
+    await deleteDoc(doc(db, 'users', currentUser.uid, 'goals', id));
+    await loadGoals();
+  } catch (e) { showAlert('alert-goal', 'Failed to delete. Please try again.'); }
+};
+
+// ---- NOTIFICATIONS ----
+async function loadNotifications() {
+  try {
+    const q = query(collection(db, 'users', currentUser.uid, 'notifications'), orderBy('createdAt', 'desc'));
+    const snap = await getDocs(q);
+    notifsCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderNotifications();
+    checkDueNotifications();
+  } catch (e) { console.error(e); }
+}
+
+async function addNotification(title, body, type = 'blue') {
+  try {
+    await addDoc(collection(db, 'users', currentUser.uid, 'notifications'), {
+      title, body, type, read: false, createdAt: serverTimestamp()
+    });
+    await loadNotifications();
+  } catch (e) { console.error(e); }
+}
+
+function checkDueNotifications() {
+  const now = new Date();
+  loansCache.filter(l => l.status === 'Active').forEach(async loan => {
+    if (!loan.dueDate) return;
+    const due  = new Date(loan.dueDate);
+    const diff = Math.ceil((due - now) / (1000 * 60 * 60 * 24));
+    if (diff === 3) {
+      const already = notifsCache.find(n => n.title === `Loan due soon` && n.body.includes(loan.app));
+      if (!already) {
+        await addNotification('Loan due soon', `Your ${loan.app} loan of KES ${parseFloat(loan.amount || 0).toLocaleString()} is due in 3 days.`, 'amber');
+      }
+    }
+  });
+}
+
+function renderNotifications() {
+  const unread = notifsCache.filter(n => !n.read).length;
+  const dot    = document.getElementById('notif-dot');
+  const badge  = document.getElementById('nav-notif-badge');
+
+  if (unread > 0) {
+    dot.classList.add('show');
+    badge.style.display = 'inline-block';
+    badge.textContent = unread;
+  } else {
+    dot.classList.remove('show');
+    badge.style.display = 'none';
+  }
+
+  const full = document.getElementById('notif-full-list');
+  if (!full) return;
+
+  if (notifsCache.length === 0) {
+    full.innerHTML = `<div class="empty-state">
+      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="width:48px;height:48px;margin:0 auto 16px;opacity:0.35;">
+        <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/>
+      </svg>
+      <h3>No notifications</h3>
+      <p>You are all caught up.</p>
+    </div>`;
+    return;
+  }
+
+  full.innerHTML = notifsCache.map(n => {
+    const iconColors = { green: 'green', amber: 'amber', red: 'red', blue: 'blue' };
+    const color = iconColors[n.type] || 'blue';
+    const time  = n.createdAt?.toDate ? n.createdAt.toDate().toLocaleDateString('en-KE', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' }) : '';
+    return `<div class="notif-item ${n.read ? '' : 'unread'}" onclick="markRead('${n.id}')">
+      <div class="notif-icon ${color}">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+      </div>
+      <div class="notif-content">
+        <div class="notif-title">${n.title}</div>
+        <div class="notif-body">${n.body}</div>
+        ${time ? `<div class="notif-time">${time}</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+window.markRead = async (id) => {
+  try {
+    await updateDoc(doc(db, 'users', currentUser.uid, 'notifications', id), { read: true });
+    await loadNotifications();
+  } catch (e) { console.error(e); }
+};
+
+window.markAllRead = async () => {
+  try {
+    const unread = notifsCache.filter(n => !n.read);
+    await Promise.all(unread.map(n => updateDoc(doc(db, 'users', currentUser.uid, 'notifications', n.id), { read: true })));
+    await loadNotifications();
+  } catch (e) { console.error(e); }
+};
+
+// ---- INTAKE FORM ----
+function buildLoanAppsCheckboxGrid() {
+  const grid = document.getElementById('loan-apps-grid');
+  grid.innerHTML = LOAN_APPS.map(app => `
+    <label class="checkbox-pill" id="pill-${app.replace(/[^a-zA-Z0-9]/g,'-')}">
+      <input type="checkbox" value="${app}" onchange="toggleCheckboxPill(this)" />
+      ${app}
+    </label>
+  `).join('');
+
+  document.getElementById('loan-apps-grid').addEventListener('change', () => {
+    const otherChecked = [...document.querySelectorAll('#loan-apps-grid input:checked')].some(c => c.value === 'Other');
+    document.getElementById('other-app-group').style.display = otherChecked ? 'block' : 'none';
+  });
+}
+
+window.toggleLoanOtherField = (sel) => {
+  const wrap = document.getElementById('loan-other-wrap');
+  if (wrap) wrap.style.display = sel.value === 'Other' ? 'block' : 'none';
+};
+
+window.toggleCheckboxPill = (input) => {
+  const label = input.closest('.checkbox-pill');
+  if (input.checked) label.classList.add('checked');
+  else label.classList.remove('checked');
+};
+
+function buildLoanAppSelects() {
+  ['loan-app', 'limit-app'].forEach(id => {
+    const sel = document.getElementById(id);
+    if (!sel) return;
+    sel.innerHTML = `<option value="">Select app...</option>` +
+      LOAN_APPS.map(a => `<option value="${a}">${a}</option>`).join('');
+  });
+}
+
+function loadIntakeForm() {
+  const form = userData.intakeForm || {};
+  const set  = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+
+  set('f-name', form.name || userData.name);
+  set('f-phone', form.phone || userData.phone);
+  set('f-email', form.email || currentUser.email);
+  set('f-date', form.date || new Date().toISOString().split('T')[0]);
+  set('f-active-loans', form.activeLoans);
+  set('f-balance', form.totalBalance);
+  set('f-repayment', form.repaymentPattern);
+  set('f-crb', form.crbStatus);
+  set('f-recovery', form.recoveryAgent);
+  set('f-reason', form.reason);
+  set('f-goal', form.mainGoal);
+  set('f-employment', form.employment);
+  set('f-income-source', form.incomeSource);
+  set('f-income', form.income);
+  set('f-obligations', form.obligations);
+  set('f-borrow-purpose', form.borrowPurpose);
+  set('f-borrow-frequency', form.borrowFrequency);
+  set('f-source', form.source);
+  set('f-concerns', form.concerns);
+  set('f-other-apps', form.otherApps);
+
+  if (form.loanApps && Array.isArray(form.loanApps)) {
+    form.loanApps.forEach(app => {
+      const input = document.querySelector(`#loan-apps-grid input[value="${app}"]`);
+      if (input) { input.checked = true; input.closest('.checkbox-pill').classList.add('checked'); }
+    });
+    const otherChecked = form.loanApps.includes('Other');
+    document.getElementById('other-app-group').style.display = otherChecked ? 'block' : 'none';
+  }
+
+  if (form.consent1) document.getElementById('f-consent-1').checked = true;
+  if (form.consent2) document.getElementById('f-consent-2').checked = true;
+  if (form.consent3) document.getElementById('f-consent-3').checked = true;
+}
+
+function getIntakeFormData() {
+  const checked = [...document.querySelectorAll('#loan-apps-grid input:checked')].map(i => i.value);
+  return {
+    name: document.getElementById('f-name').value,
+    phone: document.getElementById('f-phone').value,
+    email: document.getElementById('f-email').value,
+    date: document.getElementById('f-date').value,
+    loanApps: checked,
+    otherApps: document.getElementById('f-other-apps').value,
+    activeLoans: document.getElementById('f-active-loans').value,
+    totalBalance: document.getElementById('f-balance').value,
+    repaymentPattern: document.getElementById('f-repayment').value,
+    crbStatus: document.getElementById('f-crb').value,
+    recoveryAgent: document.getElementById('f-recovery').value,
+    reason: document.getElementById('f-reason').value,
+    mainGoal: document.getElementById('f-goal').value,
+    employment: document.getElementById('f-employment') ? document.getElementById('f-employment').value : '',
+    incomeSource: document.getElementById('f-income-source') ? document.getElementById('f-income-source').value : '',
+    income: document.getElementById('f-income').value,
+    obligations: document.getElementById('f-obligations') ? document.getElementById('f-obligations').value : '',
+    borrowPurpose: document.getElementById('f-borrow-purpose') ? document.getElementById('f-borrow-purpose').value : '',
+    borrowFrequency: document.getElementById('f-borrow-frequency') ? document.getElementById('f-borrow-frequency').value : '',
+    source: document.getElementById('f-source').value,
+    concerns: document.getElementById('f-concerns').value,
+    consent1: document.getElementById('f-consent-1').checked,
+    consent2: document.getElementById('f-consent-2').checked,
+    consent3: document.getElementById('f-consent-3').checked,
+  };
+}
+
+window.saveIntakeForm = async () => {
+  const btn = document.getElementById('btn-save-form');
+  btn.disabled = true; btn.textContent = 'Saving...';
+  try {
+    const data = getIntakeFormData();
+    await updateDoc(doc(db, 'users', currentUser.uid), { intakeForm: data, updatedAt: serverTimestamp() });
+    userData.intakeForm = data;
+    showAlert('alert-report', 'Form saved successfully.', 'success');
+    renderWellnessScore();
+  } catch (e) {
+    showAlert('alert-report', 'Failed to save. Please try again.');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Save Form';
+  }
+};
+
+window.generateReport = async () => {
+  const form = getIntakeFormData();
+  if (!form.consent1 || !form.consent2 || !form.consent3) {
+    showAlert('alert-report', 'Please confirm all three consent statements before generating your report.');
+    return;
+  }
+  if (!form.name || !form.phone) {
+    showAlert('alert-report', 'Please complete at least your name and phone number before generating.');
+    return;
+  }
+
+  await saveIntakeForm();
+
+  const score = calculateWellnessScore();
+  const scoreColor = score.total >= 70 ? 'Low Risk' : score.total >= 40 ? 'Moderate Risk' : 'High Risk';
+
+  const printDate = new Date().toLocaleDateString('en-KE', { day:'numeric', month:'long', year:'numeric' });
+  document.getElementById('print-date').textContent = printDate;
+
+  document.getElementById('print-report-content').innerHTML = `
+    <div style="margin-bottom:24px;">
+      <h2 style="font-size:14pt; color:#1B2A5E; margin-bottom:4px;">Loan Profile Report</h2>
+      <p style="font-size:9pt; color:#555555;">Prepared for: ${form.name} | Date: ${printDate}</p>
+    </div>
+
+    <table style="width:100%; border-collapse:collapse; margin-bottom:24px; font-size:10pt;">
+      <tr style="background:#E8ECF5;">
+        <td colspan="2" style="padding:8px 10px; font-weight:700; color:#1B2A5E;">Personal Details</td>
+      </tr>
+      <tr><td style="padding:6px 10px; border-bottom:1px solid #eee; color:#555; width:35%;">Full Name</td><td style="padding:6px 10px; border-bottom:1px solid #eee;">${form.name}</td></tr>
+      <tr><td style="padding:6px 10px; border-bottom:1px solid #eee; color:#555;">Email Address</td><td style="padding:6px 10px; border-bottom:1px solid #eee;">${form.email || 'Not provided'}</td></tr>
+      <tr><td style="padding:6px 10px; color:#555;">Date of Application</td><td style="padding:6px 10px;">${form.date}</td></tr>
+    </table>
+
+    <table style="width:100%; border-collapse:collapse; margin-bottom:24px; font-size:10pt;">
+      <tr style="background:#E8ECF5;">
+        <td colspan="2" style="padding:8px 10px; font-weight:700; color:#1B2A5E;">Loan App Usage</td>
+      </tr>
+      <tr><td style="padding:6px 10px; border-bottom:1px solid #eee; color:#555; width:35%;">Apps Used</td><td style="padding:6px 10px; border-bottom:1px solid #eee;">${(form.loanApps || []).join(', ') || 'None declared'}</td></tr>
+      <tr><td style="padding:6px 10px; border-bottom:1px solid #eee; color:#555;">Active Loans</td><td style="padding:6px 10px; border-bottom:1px solid #eee;">${form.activeLoans || 'Not specified'}</td></tr>
+      <tr><td style="padding:6px 10px; color:#555;">Outstanding Balance</td><td style="padding:6px 10px;">KES ${form.totalBalance || 'Not specified'}</td></tr>
+    </table>
+
+    <table style="width:100%; border-collapse:collapse; margin-bottom:24px; font-size:10pt;">
+      <tr style="background:#E8ECF5;">
+        <td colspan="2" style="padding:8px 10px; font-weight:700; color:#1B2A5E;">Repayment Behaviour</td>
+      </tr>
+      <tr><td style="padding:6px 10px; border-bottom:1px solid #eee; color:#555; width:35%;">Repayment Pattern</td><td style="padding:6px 10px; border-bottom:1px solid #eee;">${form.repaymentPattern || 'Not specified'}</td></tr>
+      <tr><td style="padding:6px 10px; border-bottom:1px solid #eee; color:#555;">CRB Status</td><td style="padding:6px 10px; border-bottom:1px solid #eee;">${form.crbStatus || 'Not specified'}</td></tr>
+      <tr><td style="padding:6px 10px; color:#555;">Recovery Agent Contact</td><td style="padding:6px 10px;">${form.recoveryAgent || 'Not specified'}</td></tr>
+    </table>
+
+    <table style="width:100%; border-collapse:collapse; margin-bottom:24px; font-size:10pt;">
+      <tr style="background:#E8ECF5;">
+        <td colspan="2" style="padding:8px 10px; font-weight:700; color:#1B2A5E;">Financial Wellness Score</td>
+      </tr>
+      <tr><td style="padding:6px 10px; border-bottom:1px solid #eee; color:#555; width:35%;">Overall Score</td><td style="padding:6px 10px; border-bottom:1px solid #eee; font-weight:700; color:#3A8C2F;">${score.total} / 100</td></tr>
+      <tr><td style="padding:6px 10px; border-bottom:1px solid #eee; color:#555;">Risk Classification</td><td style="padding:6px 10px; border-bottom:1px solid #eee;">${scoreColor}</td></tr>
+      <tr><td style="padding:6px 10px; border-bottom:1px solid #eee; color:#555;">Repayment Consistency</td><td style="padding:6px 10px; border-bottom:1px solid #eee;">${score.repayment} / 25</td></tr>
+      <tr><td style="padding:6px 10px; border-bottom:1px solid #eee; color:#555;">Borrowing Volume</td><td style="padding:6px 10px; border-bottom:1px solid #eee;">${score.volume} / 20</td></tr>
+      <tr><td style="padding:6px 10px; border-bottom:1px solid #eee; color:#555;">Balance Management</td><td style="padding:6px 10px; border-bottom:1px solid #eee;">${score.balance} / 20</td></tr>
+      <tr><td style="padding:6px 10px; border-bottom:1px solid #eee; color:#555;">CRB Safety</td><td style="padding:6px 10px; border-bottom:1px solid #eee;">${score.crb} / 20</td></tr>
+      <tr><td style="padding:6px 10px; color:#555;">Limit Growth Potential</td><td style="padding:6px 10px;">${score.growth} / 15</td></tr>
+    </table>
+
+    <table style="width:100%; border-collapse:collapse; margin-bottom:24px; font-size:10pt;">
+      <tr style="background:#E8ECF5;">
+        <td colspan="2" style="padding:8px 10px; font-weight:700; color:#1B2A5E;">Financial Goals</td>
+      </tr>
+      <tr><td style="padding:6px 10px; border-bottom:1px solid #eee; color:#555; width:35%;">Reason for Review</td><td style="padding:6px 10px; border-bottom:1px solid #eee;">${form.reason || 'Not specified'}</td></tr>
+      <tr><td style="padding:6px 10px; border-bottom:1px solid #eee; color:#555;">Main Goal</td><td style="padding:6px 10px; border-bottom:1px solid #eee;">${form.mainGoal || 'Not specified'}</td></tr>
+      <tr><td style="padding:6px 10px; color:#555;">Monthly Income</td><td style="padding:6px 10px;">KES ${form.income || 'Not provided'}</td></tr>
+    </table>
+
+    ${form.concerns ? `
+    <table style="width:100%; border-collapse:collapse; margin-bottom:24px; font-size:10pt;">
+      <tr style="background:#E8ECF5;">
+        <td style="padding:8px 10px; font-weight:700; color:#1B2A5E;">Client Notes and Concerns</td>
+      </tr>
+      <tr><td style="padding:10px;">${form.concerns}</td></tr>
+    </table>` : ''}
+  `;
+
+  await addDoc(collection(db, 'users', currentUser.uid, 'reportHistory'), {
+    generatedAt: serverTimestamp(), score: score.total
+  });
+  await addNotification('Report generated', 'Your loan profile report has been generated and is ready to download.', 'green');
+  await loadReportHistory();
+
+  window.print();
+};
+
+async function loadReportHistory() {
+  try {
+    const q = query(collection(db, 'users', currentUser.uid, 'reportHistory'), orderBy('generatedAt', 'desc'));
+    const snap = await getDocs(q);
+    const reports = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    const container = document.getElementById('report-history');
+
+    if (reports.length === 0) {
+      container.innerHTML = `<div class="empty-state" style="padding:24px 0;">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="width:48px;height:48px;margin:0 auto 16px;opacity:0.35;">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/>
+        </svg>
+        <h3>No reports yet</h3><p>Your first generated report will appear here.</p>
+      </div>`;
+      return;
+    }
+
+    container.innerHTML = reports.map(r => {
+      const d = r.generatedAt?.toDate ? r.generatedAt.toDate().toLocaleDateString('en-KE', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' }) : 'Unknown';
+      return `<div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--border); font-size:13px;">
+        <div>
+          <div style="font-weight:600;">Loan Profile Report</div>
+          <div style="font-size:11px; color:var(--text-muted);">${d}</div>
+        </div>
+        <span class="badge badge-green">Score: ${r.score || '--'}</span>
+      </div>`;
+    }).join('');
+  } catch (e) { console.error(e); }
+}
+
+// ---- PROFILE ----
+window.saveProfile = async () => {
+  const name  = document.getElementById('p-name').value.trim();
+  const phone = document.getElementById('p-phone').value.trim();
+  if (!name) { showAlert('alert-profile', 'Please enter your name.'); return; }
+  const btn = document.getElementById('btn-save-profile');
+  btn.disabled = true; btn.textContent = 'Saving...';
+  try {
+    await updateDoc(doc(db, 'users', currentUser.uid), { name, phone, updatedAt: serverTimestamp() });
+    userData.name = name; userData.phone = phone;
+    renderHeader();
+    showAlert('alert-profile', 'Profile updated successfully.', 'success');
+  } catch (e) {
+    showAlert('alert-profile', 'Failed to save. Please try again.');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Save Changes';
+  }
+};
+
+window.changePassword = async () => {
+  const pw1 = document.getElementById('p-new-pw').value;
+  const pw2 = document.getElementById('p-confirm-pw').value;
+  if (!pw1) { showAlert('alert-profile', 'Please enter a new password.'); return; }
+  if (pw1.length < 6) { showAlert('alert-profile', 'Password must be at least 6 characters.'); return; }
+  if (pw1 !== pw2) { showAlert('alert-profile', 'Passwords do not match.'); return; }
+  try {
+    await updatePassword(auth.currentUser, pw1);
+    document.getElementById('p-new-pw').value = '';
+    document.getElementById('p-confirm-pw').value = '';
+    showAlert('alert-profile', 'Password updated successfully.', 'success');
+  } catch (e) {
+    showAlert('alert-profile', 'Failed to update password. Please sign out and sign back in, then try again.');
+  }
+};
+
+window.uploadAvatar = async (input) => {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { showAlert('alert-profile', 'Image must be under 5MB.'); return; }
+
+  const status = document.getElementById('avatar-upload-status');
+  status.style.display = 'block'; status.textContent = 'Uploading...';
+
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+    const res  = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, { method:'POST', body: formData });
+    const data = await res.json();
+
+    if (!data.secure_url) throw new Error('Upload failed');
+
+    await updateDoc(doc(db, 'users', currentUser.uid), {
+      photoURL: data.secure_url, cloudinaryPublicId: data.public_id, updatedAt: serverTimestamp()
+    });
+    userData.photoURL = data.secure_url;
+    renderHeader();
+    renderProfileAvatar();
+    status.textContent = 'Photo updated.';
+    setTimeout(() => { status.style.display = 'none'; }, 3000);
+  } catch (e) {
+    status.textContent = 'Upload failed. Please try again.';
+    setTimeout(() => { status.style.display = 'none'; }, 3000);
+  }
+};
+
+function renderProfileAvatar() {
+  const wrap = document.getElementById('profile-avatar-display');
+  if (userData.photoURL) {
+    wrap.innerHTML = `<img class="avatar-large" src="${userData.photoURL}" alt="Profile photo" />`;
+  } else {
+    const initials = (userData.name || 'U').charAt(0).toUpperCase();
+    wrap.innerHTML = `<div class="avatar-large-placeholder">${initials}</div>`;
+  }
+}
+
+window.openDeleteModal = () => {
+  document.getElementById('delete-confirm-input').value = '';
+  openModal('modal-delete');
+};
+
+window.deleteAccount = async () => {
+  const val = document.getElementById('delete-confirm-input').value.trim();
+  if (val !== 'DELETE') {
+    alert('Please type DELETE to confirm.'); return;
+  }
+  try {
+    const uid = currentUser.uid;
+    const cloudId = userData.cloudinaryPublicId || null;
+
+    await updateDoc(doc(db, 'users', uid), {
+      deletionRequested: true,
+      deletionRequestedAt: serverTimestamp(),
+      cloudinaryPublicId: cloudId,
+      status: 'deleted'
+    });
+
+    await deleteUser(auth.currentUser);
+    window.location.href = 'login.html';
+  } catch (e) {
+    alert('Could not delete account. Please sign out and sign back in, then try again.');
+  }
+};
+
+// ---- LOAN COST TRACKER ----
+let loanCostCache = [];
+
+async function loadLoanCosts() {
+  try {
+    const q    = query(collection(db, 'users', currentUser.uid, 'loanCosts'), orderBy('date', 'desc'));
+    const snap = await getDocs(q);
+    loanCostCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderLoanCostTable();
+    renderLoanCostSummary();
+  } catch(e) { console.error(e); }
+}
+
+function renderLoanCostSummary() {
+  const totalBorrowed   = loanCostCache.reduce((s,r) => s + (parseFloat(r.amount)||0), 0);
+  const totalInterest   = loanCostCache.reduce((s,r) => s + (parseFloat(r.interest)||0), 0);
+  const productive      = loanCostCache.filter(r => r.helped === 'Yes').length;
+  const unproductive    = loanCostCache.filter(r => r.helped === 'No').length;
+  const tb = document.getElementById('lc-total-borrowed');
+  const ti = document.getElementById('lc-total-interest');
+  const tp = document.getElementById('lc-productive');
+  const tu = document.getElementById('lc-unproductive');
+  if (tb) tb.textContent = 'KES ' + totalBorrowed.toLocaleString();
+  if (ti) ti.textContent = 'KES ' + totalInterest.toLocaleString();
+  if (tp) tp.textContent = productive;
+  if (tu) tu.textContent = unproductive;
+}
+
+function renderLoanCostTable() {
+  const tbody = document.getElementById('loan-cost-tbody');
+  if (!tbody) return;
+  if (loanCostCache.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state">
+      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="width:48px;height:48px;margin:0 auto 16px;opacity:0.35;">
+        <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+      </svg>
+      <h3>No cost entries yet</h3>
+      <p>Start logging what your loans cost you.</p>
+      <button class="btn btn-primary" onclick="openLoanCostModal()">Log Your First Entry</button>
+    </div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = loanCostCache.map(r => {
+    const helpedColor = r.helped === 'Yes' ? 'badge-green' : r.helped === 'No' ? 'badge-red' : 'badge-amber';
+    const d = r.date ? new Date(r.date).toLocaleDateString('en-KE', { day:'numeric', month:'short', year:'numeric' }) : 'N/A';
+    return `<tr>
+      <td><strong>${r.app}</strong></td>
+      <td style="color:var(--green);">KES ${parseFloat(r.amount||0).toLocaleString()}</td>
+      <td style="color:var(--red);">KES ${parseFloat(r.interest||0).toLocaleString()}</td>
+      <td style="font-size:12px;">${r.purpose||''}</td>
+      <td><span class="badge ${helpedColor}">${r.helped||'N/A'}</span></td>
+      <td class="td-muted">${d}</td>
+      <td><button class="btn btn-danger btn-sm" onclick="deleteLoanCost('${r.id}')">Delete</button></td>
+    </tr>`;
+  }).join('');
+}
+
+window.openLoanCostModal = () => {
+  const sel = document.getElementById('lc-app');
+  if (sel) {
+    sel.innerHTML = '<option value="">Select app...</option>' + LOAN_APPS.map(a => `<option value="${a}">${a}</option>`).join('');
+  }
+  document.getElementById('lc-amount').value  = '';
+  document.getElementById('lc-interest').value = '';
+  document.getElementById('lc-purpose').value  = '';
+  document.getElementById('lc-helped').value   = '';
+  document.getElementById('lc-date').value     = new Date().toISOString().split('T')[0];
+  openModal('modal-loan-cost');
+};
+
+window.saveLoanCost = async () => {
+  const app      = document.getElementById('lc-app').value;
+  const amount   = document.getElementById('lc-amount').value;
+  const interest = document.getElementById('lc-interest').value;
+  const purpose  = document.getElementById('lc-purpose').value.trim();
+  const helped   = document.getElementById('lc-helped').value;
+  const date     = document.getElementById('lc-date').value;
+  if (!app || !amount || !interest || !purpose || !helped) {
+    showAlert('alert-loan-cost', 'Please fill in all required fields.'); return;
+  }
+  try {
+    await addDoc(collection(db, 'users', currentUser.uid, 'loanCosts'), {
+      app, amount: parseFloat(amount), interest: parseFloat(interest),
+      purpose, helped, date, createdAt: serverTimestamp()
+    });
+    closeModal('modal-loan-cost');
+    await loadLoanCosts();
+  } catch(e) { showAlert('alert-loan-cost', 'Failed to save. Please try again.'); }
+};
+
+window.deleteLoanCost = async (id) => {
+  if (!confirm('Delete this entry?')) return;
+  try {
+    await deleteDoc(doc(db, 'users', currentUser.uid, 'loanCosts', id));
+    await loadLoanCosts();
+  } catch(e) { console.error(e); }
+};
+
+// ---- PROGRESS TRACKER ----
+function renderProgressTracker() {
+  const body  = document.getElementById('progress-tracker-body');
+  const badge = document.getElementById('progress-status-badge');
+  if (!body) return;
+
+  const active  = loansCache.filter(l => l.status === 'Active').length;
+  const overdue = loansCache.filter(l => l.status === 'Overdue').length;
+  const repaid  = loansCache.filter(l => l.status === 'Repaid').length;
+  const score   = calculateWellnessScore().total;
+  const intake  = userData.intakeForm || {};
+
+  if (loansCache.length === 0) {
+    body.innerHTML = '<p style="font-size:13px;color:var(--text-muted);">Log your loans to start tracking your progress.</p>';
+    return;
+  }
+
+  let status = 'Improving';
+  let statusColor = 'var(--green)';
+  let statusIcon = '&#8593;';
+
+  if (overdue > 0) {
+    status = 'Needs Attention';
+    statusColor = 'var(--red)';
+    statusIcon = '&#9888;';
+  } else if (active > 4) {
+    status = 'At Risk';
+    statusColor = 'var(--amber)';
+    statusIcon = '&#8594;';
+  } else if (score >= 65) {
+    status = 'Strong';
+    statusColor = 'var(--green)';
+    statusIcon = '&#8593;';
+  } else if (score >= 40) {
+    status = 'Progressing';
+    statusColor = 'var(--amber)';
+    statusIcon = '&#8594;';
+  } else {
+    status = 'Needs Work';
+    statusColor = 'var(--red)';
+    statusIcon = '&#8595;';
+  }
+
+  if (badge) {
+    badge.innerHTML = `<span style="font-size:13px;font-weight:700;color:${statusColor};">${statusIcon} ${status}</span>`;
+  }
+
+  const indicators = [
+    { label: 'Wellness Score', value: score + ' / 100', good: score >= 60, note: score >= 60 ? 'On track' : 'Needs improvement' },
+    { label: 'Active Loans', value: active, good: active <= 2, note: active <= 2 ? 'Healthy level' : 'Try to reduce' },
+    { label: 'Overdue Loans', value: overdue, good: overdue === 0, note: overdue === 0 ? 'All clear' : 'Clear these now' },
+    { label: 'Loans Repaid', value: repaid, good: repaid > 0, note: repaid > 0 ? 'Good track record' : 'No repaid loans yet' },
+    { label: 'CRB Status', value: intake.crbStatus || 'Not declared', good: intake.crbStatus === 'No, I have not', note: intake.crbStatus === 'Yes, currently listed' ? 'Action required' : '' },
+  ];
+
+  body.innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;">
+      ${indicators.map(ind => `
+        <div style="padding:14px;background:var(--surface-2);border-radius:10px;border:1px solid ${ind.good ? 'rgba(58,140,47,0.2)' : 'rgba(239,68,68,0.15)'};">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-muted);margin-bottom:6px;">${ind.label}</div>
+          <div style="font-size:18px;font-weight:800;color:${ind.good ? 'var(--green)' : 'var(--red)'};margin-bottom:4px;">${ind.value}</div>
+          ${ind.note ? `<div style="font-size:11px;color:var(--text-muted);">${ind.note}</div>` : ''}
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+// ---- REPAYMENT PLAN GENERATOR ----
+window.generateRepaymentPlan = () => {
+  const body   = document.getElementById('repayment-plan-body');
+  if (!body) return;
+  const active  = loansCache.filter(l => l.status === 'Active' || l.status === 'Overdue');
+  const intake  = userData.intakeForm || {};
+  const goal    = intake.mainGoal || '';
+
+  if (active.length === 0) {
+    body.innerHTML = '<p style="font-size:13px;color:var(--text-muted);">No active loans found. Add your loans in the Loan Tracker to generate your plan.</p>';
+    return;
+  }
+
+  // Sort by priority: overdue first, then by amount ascending (clear smallest first)
+  const sorted = [...active].sort((a, b) => {
+    if (a.status === 'Overdue' && b.status !== 'Overdue') return -1;
+    if (b.status === 'Overdue' && a.status !== 'Overdue') return 1;
+    return (parseFloat(a.amount)||0) - (parseFloat(b.amount)||0);
+  });
+
+  const totalOwed = active.reduce((s,l) => s + (parseFloat(l.amount)||0), 0);
+
+  const steps = sorted.map((loan, i) => {
+    const amount = parseFloat(loan.amount) || 0;
+    const due    = loan.dueDate ? new Date(loan.dueDate).toLocaleDateString('en-KE', { day:'numeric', month:'short' }) : 'No date set';
+    const isOverdue = loan.status === 'Overdue';
+    const priority = isOverdue ? 'Clear immediately' : i === 0 ? 'Clear first' : i === 1 ? 'Clear second' : 'Clear after';
+    const color    = isOverdue ? 'var(--red)' : i === 0 ? 'var(--amber)' : 'var(--text-secondary)';
+    return `
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:14px;border-radius:10px;background:var(--surface-2);border-left:3px solid ${color};margin-bottom:10px;">
+        <div style="width:24px;height:24px;border-radius:50%;background:${color};color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;">${i+1}</div>
+        <div style="flex:1;">
+          <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:3px;">${loan.app}</div>
+          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:4px;">KES ${amount.toLocaleString()} due ${due}</div>
+          <div style="font-size:11px;font-weight:600;color:${color};text-transform:uppercase;letter-spacing:0.05em;">${priority}</div>
+        </div>
+      </div>`;
+  }).join('');
+
+  const advice = goal === 'Clear existing debts'
+    ? 'Your goal is to clear your debts. Focus on the list above in order. Clear the top loan completely before touching the next one.'
+    : goal === 'Increase my loan limits'
+    ? 'To increase your limits, repay consistently and on time for 3 consecutive months on your main app. Do not take new loans while doing this.'
+    : goal === 'Qualify for a bank loan'
+    ? 'To qualify for a bank loan, you need zero overdue loans, a clean CRB record, and a consistent income. Clear all active loans and maintain a 6 month clean record.'
+    : goal === 'Build better borrowing habits'
+    ? 'Focus on borrowing only what you can repay within 14 days. This builds a strong repayment profile across all your apps.'
+    : 'Clear your loans in the order shown above. Start with the smallest or most overdue. Each loan you clear improves your profile.';
+
+  body.innerHTML = `
+    <div style="padding:14px;background:var(--green-dim);border-radius:10px;border:1px solid var(--border-green);margin-bottom:20px;">
+      <div style="font-size:12px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px;">Your Strategy</div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;">${advice}</div>
+    </div>
+    <div style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:12px;">Clear in this order (Total: KES ${totalOwed.toLocaleString()})</div>
+    ${steps}
+    <div style="margin-top:16px;padding:12px;background:var(--surface-2);border-radius:8px;">
+      <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">
+        After clearing all active loans, wait 30 days before borrowing again. This rest period signals financial stability to lenders and often triggers automatic limit increases.
+      </div>
+    </div>
+  `;
+};
+
+// ---- LOGOUT ----
+window.handleLogout = async () => {
+  await signOut(auth);
+  window.location.href = 'login.html';
+};
+
+// ---- UI HELPERS ----
+window.showSection = (id) => {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById(`section-${id}`)?.classList.add('active');
+  document.getElementById(`nav-${id}`)?.classList.add('active');
+
+  const titles = {
+    overview: 'Overview', 'loan-tracker': 'Loan Tracker', 'limit-history': 'Limit History',
+    calendar: 'Repayment Calendar', wellness: 'Wellness Score', 'repayment-plan': 'Repayment Plan',
+    reports: 'Reports', notifications: 'Notifications', profile: 'Profile Settings'
+  };
+  document.getElementById('header-title').textContent = titles[id] || '';
+
+  if (id === 'reports') loadReportHistory();
+  if (id === 'profile') renderProfileAvatar();
+  closeSidebar();
+};
+
+window.openModal = (id) => {
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+};
+
+window.closeModal = (id) => {
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow = '';
+};
+
+window.toggleSidebar = () => {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('show');
+};
+
+window.closeSidebar = () => {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('show');
+};
+
+window.toggleTheme = () => {
+  const html   = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  localStorage.setItem('cpTheme', isDark ? 'light' : 'dark');
+  updateThemeIcon();
+};
+
+function updateThemeIcon() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.getElementById('theme-icon').innerHTML = isDark
+    ? `<circle cx="12" cy="12" r="5"/>
+       <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+       <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+       <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+       <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>`
+    : `<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>`;
+}
+
+function showAlert(id, msg, type = 'error') {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const icons = {
+    error:   `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
+    success: `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+    info:    `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
+  };
+  el.className = `alert alert-${type} show`;
+  el.innerHTML = `${icons[type] || ''}<span>${msg}</span>`;
+  setTimeout(() => { el.className = `alert alert-${type}`; }, 5000);
+}
+
+function setTodayDates() {
+  const today = new Date().toISOString().split('T')[0];
+  ['loan-date-taken', 'loan-due-date', 'limit-date', 'f-date'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && !el.value) el.value = today;
+  });
+}
+
+// Apply saved theme
+const saved = localStorage.getItem('cpTheme');
+if (saved) document.documentElement.setAttribute('data-theme', saved);
+updateThemeIcon();
+
+// Close modals on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeModal(overlay.id);
+  });
+});
+</script>
+
+</body>
+</html>
